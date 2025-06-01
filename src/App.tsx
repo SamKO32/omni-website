@@ -31,18 +31,30 @@ function PlaceholderPage({ onUnlock }: { onUnlock: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black p-8 flex flex-col items-center justify-center">
-    <img src="/images/O LOGO.png" alt="OMNI Logo" style={{ height: '70px' }} />
-      <p className="mb-6">Under construction. Enter passcode for access.</p>
-      <input
-        type="password"
-        placeholder="Enter passcode"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="border p-2 mb-2 w-64 text-black"
-      />
-      <Button onClick={handleSubmit} className="bg-black text-white w-64">Enter</Button>
-      {error && <p className="mt-2 text-red-600">{error}</p>}
+    <div className="relative min-h-screen text-white flex items-center justify-center">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/gatevid.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div className="relative z-10 bg-black bg-opacity-60 p-8 rounded shadow-lg text-center max-w-sm w-full">
+        <p className="mb-6">Under construction. Enter passcode for access.</p>
+        <input
+          type="password"
+          placeholder="Enter passcode"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="border p-2 mb-2 w-full text-black"
+        />
+        <Button onClick={handleSubmit} className="bg-white text-black w-full">Enter</Button>
+        {error && <p className="mt-2 text-red-500">{error}</p>}
+      </div>
     </div>
   );
 }
