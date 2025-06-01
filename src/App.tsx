@@ -33,7 +33,7 @@ function PlaceholderPage({ onUnlock }: { onUnlock: () => void }) {
   return (
     <div className="min-h-screen bg-white text-black p-8 flex flex-col items-center justify-center">
     <img src="/images/O LOGO.png" alt="OMNI Logo" style={{ height: '70px' }} />
-      <p className="mb-6">Under construction. Enter admin passcode for access.</p>
+      <p className="mb-6">Under construction. Enter passcode for access.</p>
       <input
         type="password"
         placeholder="Enter passcode"
