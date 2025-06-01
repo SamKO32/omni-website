@@ -1,155 +1,220 @@
 import { useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
 import { Button } from './components/ui/button';
 import React from 'react';
 
-
-function LandingPage({ onEnter }: { onEnter: () => void }) {
-  return (
-    <div className="h-screen w-screen relative bg-black">
-      <Canvas className="absolute top-0 left-0 h-full w-full">
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-          <planeGeometry args={[100, 100, 64, 64]} />
-          <meshStandardMaterial color="#3a0ca3" wireframe={true} />
-        </mesh>
-
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-
-        <mesh rotation={[0.4, 0.4, 0]} position={[0, 2, 0]}>
-          <sphereGeometry args={[2, 32, 32]} />
-          <meshStandardMaterial color="#f72585" wireframe />
-        </mesh>
-
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2.0} />
-      </Canvas>
-
-      <div className="absolute inset-0 flex items-center justify-center">
-        <Button className="text-white text-xl p-6 bg-pink-600 hover:bg-pink-700" onClick={onEnter}>
-          Enter Store
-        </Button>
-      </div>
-    </div>
-  );
-}
-
 function ContactPage({ onBack }: { onBack: () => void }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-black text-white p-8">
-      <button className="mb-4 text-pink-500 hover:underline" onClick={onBack}>← Back</button>
+    <div className="min-h-screen bg-white text-black p-8">
+      <button className="mb-4 text-black hover:underline" onClick={onBack}>← Back</button>
       <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-      <p>For inquiries, collaborations, or support, reach out to us at <a href="mailto:contact@omni.com" className="text-pink-400 hover:underline">contact@omni.com</a>.</p>
+      <p>
+        For inquiries, collaborations, or support, reach out to us at{' '}
+        <a href="mailto:contact@omni.com" className="text-black hover:underline">
+          contact@omni.com
+        </a>.
+      </p>
     </div>
   );
 }
 
-function ProfilePage({ onBack }: { onBack: () => void }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-black text-white p-8">
-      <button className="mb-4 text-pink-500 hover:underline" onClick={onBack}>← Back</button>
-      <h1 className="text-3xl font-bold mb-4">Profile</h1>
-      <p>This is your profile page. Add account settings and order history here in the future.</p>
-    </div>
-  );
-}
+function PlaceholderPage({ onUnlock }: { onUnlock: () => void }) {
+  const [input, setInput] = useState('');
+  const [error, setError] = useState('');
 
-function StorePage({ onBack, onContact, onProfile }: { onBack: () => void, onContact: () => void, onProfile: () => void }) {
-  const [cart, setCart] = useState<{ id: number; name: string; price: string }[]>([]);
-
-  const dummyProducts = [
-    {
-      id: 1,
-      name: 'Time F*cks Tee',
-      price: '$29.99',
-      image: '/images/TIME F* FRONT.png'
-    },
-    {
-      id: 2,
-      name: 'PSP Tee',
-      price: '$29.99',
-      image: '/images/PSP TEE.png'
-    },
-    {
-      id: 3,
-      name: 'NASA Hoodie',
-      price: '$99.99',
-      image: '/images/NASA HOODIE FRONT.png'
-    },
-    {
-      id: 4,
-      name: '2035 Hoodie',
-      price: '$39.99',
-      image: '/images/2035 HOODIE FRONT.png'
-    //   frontImage: '/images/2035 HOODIE FRONT.png',
-    //   backImage: '/images/2035 HOODIE BACK.png'
+  const handleSubmit = () => {
+    if (input === 'OMNIADMIN') {
+      setError('');
+      onUnlock();
+    } else {
+      setError('Incorrect passcode. Try again.');
     }
-  ];
-
-  const addToCart = (product: { id: number; name: string; price: string }) => {
-    setCart(prev => [...prev, product]);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-black text-white">
-      <nav className="w-full bg-black bg-opacity-80 p-4 flex justify-between items-center text-white">
-        <div className="flex gap-6">
-          <button onClick={onBack} className="hover:text-pink-500">Home</button>
-          <button className="hover:text-pink-500">Shop</button>
-          <button onClick={onContact} className="hover:text-pink-500">Contact</button>
+    <div className="min-h-screen bg-white text-black p-8 flex flex-col items-center justify-center">
+    <img src="/images/O LOGO.png" alt="OMNI Logo" style={{ height: '70px' }} />
+      <p className="mb-6">Under construction. Enter admin passcode for access.</p>
+      <input
+        type="password"
+        placeholder="Enter passcode"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        className="border p-2 mb-2 w-64 text-black"
+      />
+      <Button onClick={handleSubmit} className="bg-black text-white w-64">Enter</Button>
+      {error && <p className="mt-2 text-red-600">{error}</p>}
+    </div>
+  );
+}
+
+function StorePage({
+  onBack,
+  onContact,
+  onPrivacy,
+  onFAQ,
+}: {
+  onBack: () => void;
+  onContact: () => void;
+  onPrivacy: () => void;
+  onFAQ: () => void;
+}) {
+  const [cart, setCart] = useState<{ id: number; name: string; price: string; image: string; size?: string }[]>([]);
+  const [showCart, setShowCart] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedSizes, setSelectedSizes] = useState<{ [key: number]: string }>({});
+  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+
+  const dummyProducts = [
+    { id: 1, name: 'TIME F*CKS TEE', price: '$29.99', image: '/images/TIME F* FRONT.png', hoverImage: '/images/TIME F* BACK.png' },
+    { id: 2, name: 'PSP TEE', price: '$29.99', image: '/images/PSP TEE.png', hoverImage: '/images/imageloading.png' },
+    { id: 3, name: 'NASA HOODIE', price: '$99.99', image: '/images/NASA HOODIE FRONT.png', hoverImage: '/images/NASA HOODIE BACK.png' },
+    { id: 4, name: 'MEMBER HOODIE', price: '$39.99', image: '/images/2035 HOODIE FRONT.png', hoverImage: '/images/2035 HOODIE BACK.png' },
+    { id: 5, name: 'O DUTCH JERSEY', price: '$29.99', image: '/images/O DUTCH JERSEY.png', hoverImage: '/images/imageloading.png' },
+    { id: 6, name: 'TORTURE BEANIE', price: '$29.99', image: '/images/TORTURE_BEANIE_FRONT.png', hoverImage: '/images/TORTURE_BEANIE_BACK.png' },
+    { id: 7, name: 'WWW BEANIE', price: '$99.99', image: '/images/WWW.OMNI.COM BEANIE OUTER.png', hoverImage: '/images/WWW.OMNI.COM INSIDE.png' },
+    { id: 8, name: 'DENIM SPACE TROUSERS', price: '$39.99', image: '/images/O SPACE TROUSERS.png', hoverImage: '/images/imageloading.png' },
+  ];
+
+  const addToCart = (product: { id: number; name: string; price: string; image: string }) => {
+    setCart((prev) => [...prev, { ...product, size: selectedSizes[product.id] }]);
+    setShowCart(true);
+    setMenuOpen(false);
+  };
+
+  const removeFromCart = (indexToRemove: number) => {
+    setCart((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  const calculateSubtotal = () => {
+    return cart.reduce((total, item) => total + parseFloat(item.price.replace('$', '')), 0).toFixed(2);
+  };
+
+  const closePanels = () => {
+    setShowCart(false);
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+    setShowCart(false);
+  };
+
+  const toggleCart = () => {
+    setShowCart((prev) => !prev);
+    setMenuOpen(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-black relative">
+      {(showCart || menuOpen) && (
+        <div className="fixed inset-0 bg-black opacity-80 z-10" onClick={closePanels}></div>
+      )}
+      <nav className="fixed top-0 w-full bg-transparent p-4 flex justify-between items-center text-black z-50">
+        <button onClick={toggleMenu} className="hover:text-gray-700">Menu</button>
+        <div className="text-2xl font-bold tracking-widest">
+          <img src="/images/O LOGO.png" alt="OMNI Logo" style={{ height: '70px' }} />
         </div>
-        <div className="text-2xl font-bold tracking-widest">OMNI</div>
-        <div className="flex gap-4">
-          <button onClick={onProfile} className="hover:text-pink-500">Profile</button>
-          <button className="hover:text-pink-500">Cart ({cart.length})</button>
-        </div>
+        <button onClick={toggleCart} className="hover:text-gray-700">Cart ({cart.length})</button>
       </nav>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
-        {dummyProducts.map(product => (
-          <div key={product.id} className="border border-gray-700 rounded-xl p-4 shadow-md bg-gray-900 hover:shadow-pink-500/50 transition-shadow">
-            {product.frontImage && product.backImage ? (
-              <div className="flex gap-2 mb-4">
-                <img
-                  src={product.frontImage}
-                  alt={product.name + ' Front'}
-                  className="w-1/2 h-64 object-contain bg-white rounded transform transition-transform duration-300 hover:scale-110"
-                />
-                <img
-                  src={product.backImage}
-                  alt={product.name + ' Back'}
-                  className="w-1/2 h-64 object-contain bg-white rounded transform transition-transform duration-300 hover:scale-110"
-                />
-              </div>
-            ) : (
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-64 object-contain mb-4 bg-white rounded transform transition-transform duration-300 hover:scale-110"
-              />
-            )}
-            <h2 className="text-xl font-semibold">{product.name}</h2>
-            <p className="text-lg text-gray-300">{product.price}</p>
-            <Button
-              className="mt-2 w-full bg-pink-600 text-white hover:bg-pink-700"
-              onClick={() => addToCart(product)}
-            >
-              Add to Cart
-            </Button>
+      {menuOpen && (
+        <div className="fixed top-0 left-0 h-full w-80 bg-white text-black shadow-xl p-6 z-50 flex flex-col pt-16">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold">Menu</h3>
+            <button className="text-black hover:underline" onClick={() => setMenuOpen(false)}>Close</button>
           </div>
-        ))}
+          <div className="mb-6">
+            <p className="font-bold mb-2">Shop</p>
+            <ul className="space-y-2">
+              <li><button onClick={onBack}>Shop All</button></li>
+              <li><button>Shirts</button></li>
+              <li><button>Pants</button></li>
+              <li><button>Accessories</button></li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-bold mb-2">Info</p>
+            <ul className="space-y-2">
+              <li><button onClick={onContact}>Contact</button></li>
+              <li><a href="https://discord.gg/omni" target="_blank" rel="noopener noreferrer" className="text-left w-full block text-black hover:text-black">Discord</a></li>
+              <li><button onClick={onPrivacy}>Privacy Policy</button></li>
+              <li><button onClick={onFAQ}>FAQ</button></li>
+            </ul>
+          </div>
+        </div>
+      )}
+
+      <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+        {dummyProducts.map((product) => {
+          const selectedSize = selectedSizes[product.id];
+          return (
+            <div key={product.id} className="p-4 bg-white">
+              <img
+                src={hoveredProductId === product.id && product.hoverImage ? product.hoverImage : product.image}
+                alt={product.name}
+                className="w-full aspect-square object-cover mb-2"
+                onMouseEnter={() => setHoveredProductId(product.id)}
+                onMouseLeave={() => setHoveredProductId(null)}
+              />
+              <div className="flex justify-center space-x-2 mb-2">
+                {['S', 'M', 'L', 'XL'].map((size) => (
+                  <button
+                    key={size}
+                    className={`border rounded px-2 py-1 text-sm ${
+                      selectedSize === size ? 'bg-black text-white' : 'bg-white text-black'
+                    }`}
+                    onClick={() => setSelectedSizes((prev) => ({ ...prev, [product.id]: size }))}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+              <h2 className="text-center text-lg font-semibold text-black">{product.name}</h2>
+              <p className="text-center text-gray-600">{product.price}</p>
+              {selectedSize ? (
+                <Button
+                  className="mt-2 w-full bg-black text-white hover:bg-gray-900"
+                  onClick={() => addToCart(product)}
+                >
+                  Add to Cart
+                </Button>
+              ) : (
+                <p className="mt-2 text-center text-sm text-gray-400">Select Size</p>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      {cart.length > 0 && (
-        <div className="fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded-xl shadow-lg max-w-xs w-full">
-          <h3 className="font-bold text-lg mb-2">Cart</h3>
-          <ul className="text-sm space-y-1 max-h-48 overflow-y-auto">
-            {cart.map((item, index) => (
-              <li key={index}>{item.name} - {item.price}</li>
-            ))}
-          </ul>
+      {showCart && (
+        <div className="fixed top-0 right-0 h-full w-80 bg-white text-black shadow-xl p-6 z-50 flex flex-col pt-16">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold">Your Cart</h3>
+            <button className="text-black hover:underline" onClick={() => setShowCart(false)}>Close</button>
+          </div>
+          {cart.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            <ul className="space-y-4 flex-1 overflow-y-auto">
+              {cart.map((item, index) => (
+                <li key={index} className="flex items-center space-x-4">
+                  <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                  <div className="flex-1">
+                    <p className="font-semibold">{item.name}</p>
+                    <p className="text-sm text-gray-600">Size: {item.size}</p>
+                    <p className="text-sm">{item.price}</p>
+                  </div>
+                  <button onClick={() => removeFromCart(index)} className="text-black hover:underline">Remove</button>
+                </li>
+              ))}
+            </ul>
+          )}
+          {cart.length > 0 && (
+            <div className="mt-4 border-t pt-4">
+              <p className="font-semibold">Subtotal: ${calculateSubtotal()}</p>
+              <Button className="mt-2 w-full bg-black text-white hover:bg-gray-900">Checkout</Button>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -157,20 +222,22 @@ function StorePage({ onBack, onContact, onProfile }: { onBack: () => void, onCon
 }
 
 export default function App() {
-  const [page, setPage] = useState<'landing' | 'store' | 'contact' | 'profile'>('landing');
+  const [page, setPage] = useState<'placeholder' | 'store' | 'contact' | 'privacy' | 'faq'>('placeholder');
 
   return (
-    <main className="overflow-hidden relative min-h-screen w-full">
-      {page === 'landing' && <LandingPage onEnter={() => setPage('store')} />}
+    <>
+      {page === 'placeholder' && <PlaceholderPage onUnlock={() => setPage('store')} />}
       {page === 'store' && (
         <StorePage
-          onBack={() => setPage('landing')}
+          onBack={() => {}}
           onContact={() => setPage('contact')}
-          onProfile={() => setPage('profile')}
+          onPrivacy={() => setPage('privacy')}
+          onFAQ={() => setPage('faq')}
         />
       )}
       {page === 'contact' && <ContactPage onBack={() => setPage('store')} />}
-      {page === 'profile' && <ProfilePage onBack={() => setPage('store')} />}
-    </main>
+      {page === 'privacy' && <PlaceholderPage onUnlock={() => setPage('store')} />}
+      {page === 'faq' && <PlaceholderPage onUnlock={() => setPage('store')} />}
+    </>
   );
 }
