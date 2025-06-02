@@ -5,13 +5,13 @@ import { Button } from '../components/ui/button';
 export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // ✅ hook to navigate programmatically
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (input === 'OMNIADMIN') {
+    if ((input === 'OMNIADMIN') || (input === 'omniadmin')) {
       setError('');
       onUnlock();
-      navigate('/store'); // ✅ navigate to /store
+      navigate('/store');
     } else {
       setError('Incorrect passcode. Try again.');
     }

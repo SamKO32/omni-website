@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import StorePage from './pages/StorePage';
@@ -17,12 +16,10 @@ function App() {
     <StoreProvider>
       <Router>
         <Routes>
-          {/* Gate page at root */}
           <Route path="/" element={<GatePage onUnlock={() => setUnlocked(true)} />} />
 
           {unlocked ? (
             <>
-              {/* Protected routes inside Layout */}
               <Route element={<Layout />}>
                 <Route path="/store" element={<StorePage />} />
                 <Route path="/product/:id" element={<ProductPage />} />
