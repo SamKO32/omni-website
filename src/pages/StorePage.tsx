@@ -10,7 +10,7 @@ const dummyProducts = [
   { id: 5, name: 'O DUTCH JERSEY', price: '$65', image: '/images/O DUTCH JERSEY.png', hoverImage: '/images/imageloading.png' },
   { id: 6, name: 'TORTURE BEANIE', price: '$17', image: '/images/TORTURE_BEANIE_FRONT.png', hoverImage: '/images/TORTURE_BEANIE_BACK.png' },
   { id: 7, name: 'WWW BEANIE', price: '$20', image: '/images/WWW.OMNI.COM BEANIE OUTER.png', hoverImage: '/images/WWW.OMNI.COM INSIDE.png' },
-  { id: 8, name: 'DENIM SPACE TROUSERS', price: '$125', image: '/images/O SPACE TROUSERS.png', hoverImage: '/images/imageloading.png' },
+  { id: 8, name: 'DENIM SPACE TROUSERS', price: '$125', image: '/images/SPACE TROUSERS FRONT.png', hoverImage: '/images/SPACE TROUSERS BACK.png' },
 ];
 
 export default function StorePage() {
