@@ -30,7 +30,7 @@ const Layout = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-white text-black relative">
+    <div className="min-h-screen bg-black text-white relative">
       {(showCart || menuOpen) && <div className="fixed inset-0 bg-black opacity-90 z-10" onClick={closePanels}></div>}
 
       <Navbar

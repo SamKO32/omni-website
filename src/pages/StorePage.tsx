@@ -10,12 +10,12 @@ export default function StorePage() {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
   return (
-    <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 min-h-screen bg-white text-black">
+    <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 min-h-screen bg-black text-white">
       {dummyProducts.map((product) => {
         const selectedSize = selectedSizes[product.id];
 
         return (
-          <div key={product.id} className="p-4 bg-white">
+          <div key={product.id} className="p-4 bg-black">
             <Link to={`/product/${product.id}`}>
               <img
                 src={hoveredProductId === product.id && product.hoverImage ? product.hoverImage : product.image}
@@ -39,7 +39,7 @@ export default function StorePage() {
             </div>
 
             <Link to={`/product/${product.id}`}>
-              <h2 className="text-center text-lg font-semibold text-black hover:underline">{product.name}</h2>
+              <h2 className="text-center text-lg font-semibold text-white hover:underline">{product.name}</h2>
             </Link>
             <p className="text-center text-gray-600">{product.price}</p>
 
