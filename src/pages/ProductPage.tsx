@@ -112,11 +112,6 @@ export default function ProductPage() {
           </pre>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="text-center text-xs text-gray-600 pb-4">
-        © 2025, ONTO MY NEXT IDEA
-      </footer>
     </div>
   );
 }

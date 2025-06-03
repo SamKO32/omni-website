@@ -6,7 +6,7 @@ export const dummyProducts = [
     image: '/images/TIME F* FRONT.png',
     hoverImage: '/images/TIME F* BACK.png', 
     extraImages: ['/images/TIME F* BACK.png'],
-    description: 'A bold graphic tee confronting time and perception. Made from 100% cotton.'
+    description: 'Graphic tee confronting time and perception. Made from 100% cotton.'
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const dummyProducts = [
     image: '/images/PSP TEE.png',
     hoverImage: '/images/imageloading.png', 
     extraImages: ['/images/imageloading.png'],
-    description: 'A vintage-inspired print with a nostalgic feel. Super soft and lightweight.'
+    description: 'OMNI PSP Tee bihh idk, nostalgia.. Super soft and lightweight. Made from 100% cotton.'
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const dummyProducts = [
     image: '/images/2035 HOODIE FRONT.png',
     hoverImage: '/images/2035 HOODIE BACK.png', 
     extraImages: ['/images/2035 HOODIE BACK.png'],
-    description: '“2035 Member” hoodie, exclusive cut. Futurist and cozy.'
+    description: '“2035 Member” hoodie, exclusive cut. Swag and cozy.'
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ export const dummyProducts = [
     image: '/images/O DUTCH JERSEY.png',
     hoverImage: '/images/imageloading.png', 
     extraImages: ['/images/imageloading.png'],
-    description: 'Retro baseball-style jersey with custom OMNI lettering.'
+    description: 'Retro football-style jersey with custom Dutch OMNI lettering.'
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ export const dummyProducts = [
     image: '/images/TORTURE_BEANIE_FRONT.png',
     hoverImage: '/images/TORTURE_BEANIE_BACK.png', 
     extraImages: ['/images/TORTURE_BEANIE_BACK.png'],
-    description: 'Ribbed knit beanie with the signature “TORTURE” design.'
+    description: 'Ribbed knit beanie. Made from torture.'
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ export const dummyProducts = [
     image: '/images/WWW.OMNI.COM BEANIE OUTER.png',
     hoverImage: '/images/WWW.OMNI.COM INSIDE.png', 
     extraImages: ['/images/WWW.OMNI.COM INSIDE.png'],
-    description: 'Soft-knit beanie with embroidered www.omni.com branding. Inside detail shown.'
+    description: 'Reversible soft-knit beanie. WWW.ONTOMYNEXTIDEA.COM.'
   },
   {
     id: 8,
@@ -69,6 +69,6 @@ export const dummyProducts = [
     image: '/images/SPACE TROUSERS FRONT.png',
     hoverImage: '/images/SPACE TROUSERS BACK.png', 
     extraImages: ['/images/SPACE TROUSERS BACK.png'],
-    description: 'Futuristic denim trousers with interstellar flair. Utility pockets included.'
+    description: 'Lets go to space. Raw denim with OMNI logo. Limited edition.'
   }
 ];

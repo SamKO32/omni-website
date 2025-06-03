@@ -25,10 +25,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black p-8 flex flex-col items-center">
+    <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center">
       <div className="max-w-2xl w-full">
         <h1 className="text-3xl font-bold mb-2 text-center">Contact</h1>
-        <p className="text-gray-700 mb-8 text-center">
+        <p className="text-gray-300 mb-8 text-center">
           Have questions? Contact us using the form below and we'll get back to you as soon as possible.
         </p>
 
@@ -43,7 +43,7 @@ export default function ContactPage() {
               required
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 rounded bg-gray-300 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full p-3 rounded bg-gray-500 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             />
 
             <input
@@ -53,7 +53,7 @@ export default function ContactPage() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 rounded bg-gray-300 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full p-3 rounded bg-gray-500 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             />
 
             <input
@@ -62,7 +62,7 @@ export default function ContactPage() {
               placeholder="Order Number (optional)"
               value={formData.order}
               onChange={handleChange}
-              className="w-full p-3 rounded bg-gray-300 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full p-3 rounded bg-gray-500 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             />
 
             <select
@@ -70,7 +70,7 @@ export default function ContactPage() {
               required
               value={formData.reason}
               onChange={handleChange}
-              className="w-full p-3 rounded bg-gray-300 text-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full p-3 rounded bg-gray-500 text-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             >
               <option value="">Select Reason...</option>
               <option value="general help">General Help</option>
@@ -85,12 +85,12 @@ export default function ContactPage() {
               required
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-3 h-32 rounded bg-gray-300 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white resize-none"
+              className="w-full p-3 h-32 rounded bg-gray-500 text-black border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white resize-none"
             />
 
             <button
               type="submit"
-              className="w-full bg-black text-white py-3 rounded hover:bg-gray-500 transition font-semibold"
+              className="w-full bg-white text-black py-3 rounded hover:bg-gray-500 transition font-semibold"
             >
               Send Message
             </button>

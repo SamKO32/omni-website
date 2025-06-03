@@ -53,10 +53,14 @@ const Layout = () => {
           subtotal={calculateSubtotal()}
         />
       )}
-
+      
       <main className="pt-24">
         <Outlet />
       </main>
+
+      <footer className="text-center text-xs text-white pb-7">
+        © 2025, ONTO MY NEXT IDEA
+      </footer>
     </div>
   );
 };

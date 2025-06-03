@@ -45,7 +45,7 @@ export default function StorePage() {
 
             {selectedSize ? (
               <Button
-                className="mt-2 w-full bg-black text-white hover:bg-gray-900"
+                className="mt-2 w-full bg-gray-800 text-white hover:bg-gray-900"
                 onClick={() => addToCart({ ...product, size: selectedSize })}
               >
                 Add to Cart
