@@ -1,22 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ onMenuClick, onCartClick, cartCount }: {
+const Navbar = ({
+  onMenuClick,
+  onCartClick,
+  cartCount,
+}: {
   onMenuClick: () => void;
   onCartClick: () => void;
   cartCount: number;
 }) => {
   return (
-    <nav className="fixed top-0 w-full bg-transparent p-4 flex justify-between items-center text-white z-50">
-      <button onClick={onMenuClick} className="hover:text-gray-700">MENU</button>
+    <nav className="fixed top-0 w-full bg-transparent p-4 flex justify-between items-center text-white z-50 mt-6">
+      {/* Left */}
+      <button onClick={onMenuClick} className="hover:text-gray-700 ml-10">
+        MENU
+      </button>
 
-      <div className="text-2xl font-bold tracking-widest">
+      {/* Center Logo - absolute and spaced from top */}
+      <div className="absolute left-1/2 transform -translate-x-1/2">
         <Link to="/store">
-          <img src="/images/OMNI NASA.png" alt="OMNI Logo" style={{ height: '70px' }} />
+          <img
+            src="/images/OMNI NASA.png"
+            alt="OMNI Logo"
+            className="h-[70px] mt-2"
+          />
         </Link>
       </div>
 
-      <button onClick={onCartClick} className="hover:text-gray-700">
+      {/* Right */}
+      <button onClick={onCartClick} className="hover:text-gray-700 mr-10">
         CART ({cartCount})
       </button>
     </nav>

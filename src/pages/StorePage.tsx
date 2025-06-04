@@ -10,7 +10,7 @@ export default function StorePage() {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
   return (
-    <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 min-h-screen bg-black text-white">
+    <div className="pt-20 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-0 p-4 min-h-screen bg-black text-white">
       {dummyProducts.map((product) => {
         const selectedSize = selectedSizes[product.id];
 
@@ -20,17 +20,17 @@ export default function StorePage() {
               <img
                 src={hoveredProductId === product.id && product.hoverImage ? product.hoverImage : product.image}
                 alt={product.name}
-                className="w-full aspect-square object-cover mb-2 transition-transform hover:scale-105"
+                className="w-full max-w-[450px] mx-auto aspect-square object-cover mb-1 transition-transform hover:scale-105"
                 onMouseEnter={() => setHoveredProductId(product.id)}
                 onMouseLeave={() => setHoveredProductId(null)}
               />
             </Link>
 
-            <div className="flex justify-center space-x-2 mb-2">
+            {/* <div className="flex justify-center space-x-2 mb-2">
               {['S', 'M', 'L', 'XL'].map((size) => (
                 <button
                   key={size}
-                  className={`border rounded px-2 py-1 text-sm ${selectedSize === size ? 'bg-black text-white' : 'bg-white text-black'}`}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${selectedSize === size ? 'bg-black text-white' : 'bg-white text-black'}`}
                   onClick={() => setSelectedSizes((prev) => ({ ...prev, [product.id]: size }))}
                 >
                   {size}
@@ -52,7 +52,7 @@ export default function StorePage() {
               </Button>
             ) : (
               <p className="mt-2 text-center text-sm text-gray-400">Select Size</p>
-            )}
+            )} */}
           </div>
         );
       })}

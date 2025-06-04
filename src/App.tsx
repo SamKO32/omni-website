@@ -6,6 +6,7 @@ import GatePage from './pages/GatePage';
 import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
+import ListenPage from './pages/ListenPage';
 import Layout from './Layout';
 import { StoreProvider } from './context/StoreContext';
 
@@ -22,6 +23,7 @@ function App() {
             <>
               <Route element={<Layout />}>
                 <Route path="/store" element={<StorePage />} />
+                <Route path="/listen" element={<ListenPage />} />
                 <Route path="/product/:id" element={<ProductPage />} />
                 <Route path="/faq" element={<FAQPage />} />
                 <Route path="/contact" element={<ContactPage />} />

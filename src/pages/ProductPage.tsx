@@ -62,7 +62,7 @@ export default function ProductPage() {
           {['S', 'M', 'L', 'XL'].map(size => (
             <button
               key={size}
-              className={`border px-4 py-1 rounded transition ${
+              className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${
                 selectedSize === size ? 'bg-white text-black' : 'text-white border-white'
               }`}
               onClick={() => setSelectedSize(size)}

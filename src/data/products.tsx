@@ -1,24 +1,6 @@
 export const dummyProducts = [
   {
     id: 1,
-    name: 'TIME F*CKS TEE',
-    price: '$30',
-    image: '/images/TIME F* FRONT.png',
-    hoverImage: '/images/TIME F* BACK.png', 
-    extraImages: ['/images/TIME F* BACK.png'],
-    description: 'Graphic tee confronting time and perception. Made from 100% cotton.'
-  },
-  {
-    id: 2,
-    name: 'PSP TEE',
-    price: '$30',
-    image: '/images/PSP TEE.png',
-    hoverImage: '/images/imageloading.png', 
-    extraImages: ['/images/imageloading.png'],
-    description: 'OMNI PSP Tee bihh idk, nostalgia.. Super soft and lightweight. Made from 100% cotton.'
-  },
-  {
-    id: 3,
     name: 'NASA HOODIE',
     price: '$80',
     image: '/images/NASA HOODIE FRONT.png',
@@ -27,7 +9,7 @@ export const dummyProducts = [
     description: 'Official NASA-style hoodie for interstellar dreamers. Premium fleece-lined.'
   },
   {
-    id: 4,
+    id: 2,
     name: 'MEMBER HOODIE',
     price: '$50',
     image: '/images/2035 HOODIE FRONT.png',
@@ -36,22 +18,38 @@ export const dummyProducts = [
     description: '“2035 Member” hoodie, exclusive cut. Swag and cozy.'
   },
   {
+    id: 3,
+    name: 'TIME F*CKS TEE',
+    price: '$30',
+    image: '/images/TIME F* FRONT.png',
+    hoverImage: '/images/TIME F* BACK.png', 
+    extraImages: ['/images/TIME F* BACK.png'],
+    description: 'Graphic tee confronting time and perception. Made from 100% cotton.'
+  },
+  {
+    id: 4,
+    name: 'PSP TEE',
+    price: '$30',
+    image: '/images/PSP TEE.png', 
+    extraImages: ['/images/imageloading.png'],
+    description: 'OMNI PSP Tee bihh idk, nostalgia.. Super soft and lightweight. Made from 100% cotton.'
+  },
+  {
     id: 5,
     name: 'O DUTCH JERSEY',
     price: '$65',
     image: '/images/O DUTCH JERSEY.png',
-    hoverImage: '/images/imageloading.png', 
     extraImages: ['/images/imageloading.png'],
     description: 'Retro football-style jersey with custom Dutch OMNI lettering.'
   },
   {
     id: 6,
-    name: 'TORTURE BEANIE',
-    price: '$17',
-    image: '/images/TORTURE_BEANIE_FRONT.png',
-    hoverImage: '/images/TORTURE_BEANIE_BACK.png', 
-    extraImages: ['/images/TORTURE_BEANIE_BACK.png'],
-    description: 'Ribbed knit beanie. Made from torture.'
+    name: 'DENIM SPACE TROUSERS',
+    price: '$125',
+    image: '/images/SPACE TROUSERS FRONT.png',
+    hoverImage: '/images/SPACE TROUSERS BACK.png', 
+    extraImages: ['/images/SPACE TROUSERS BACK.png'],
+    description: 'Lets go to space. Raw denim with OMNI logo. Limited edition.'
   },
   {
     id: 7,
@@ -64,11 +62,11 @@ export const dummyProducts = [
   },
   {
     id: 8,
-    name: 'DENIM SPACE TROUSERS',
-    price: '$125',
-    image: '/images/SPACE TROUSERS FRONT.png',
-    hoverImage: '/images/SPACE TROUSERS BACK.png', 
-    extraImages: ['/images/SPACE TROUSERS BACK.png'],
-    description: 'Lets go to space. Raw denim with OMNI logo. Limited edition.'
+    name: 'TORTURE BEANIE',
+    price: '$17',
+    image: '/images/TORTURE_BEANIE_FRONT.png',
+    hoverImage: '/images/TORTURE_BEANIE_BACK.png', 
+    extraImages: ['/images/TORTURE_BEANIE_BACK.png'],
+    description: 'Ribbed knit beanie. Made from torture.'
   }
 ];
