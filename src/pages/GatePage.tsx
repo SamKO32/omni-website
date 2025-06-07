@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
@@ -10,21 +10,19 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-black">
-      <div className="relative w-full h-full flex items-center justify-center">
-        <div className="relative w-full h-full sm:aspect-[9/16]">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-contain"
-          >
-            <source src="/videos/newgate2.mov" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
+      <div className="relative w-screen h-screen flex items-center justify-center">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-auto object-contain"
+        >
+          <source src="/videos/newgate2.mov" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-        {/* Clickable area */}
+        {/* Invisible clickable area */}
         <div
           onClick={handleSubmit}
           className="absolute z-10"
@@ -36,9 +34,8 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
             transform: 'translate(-50%, -50%)',
             cursor: 'pointer',
           }}
-        ></div>
+        />
       </div>
     </div>
   );
 }
-
