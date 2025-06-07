@@ -21,7 +21,7 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
-      <div className="relative min-h-screen text-white flex items-center justify-center">
+      <div className="w-full h-full sm:aspect-[9/16] flex items-center justify-center">
         <video
           autoPlay
           loop
