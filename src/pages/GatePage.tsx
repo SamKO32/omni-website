@@ -21,15 +21,13 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
-
-    
       <div className="relative min-h-screen text-white flex items-center justify-center">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-contain max-w-none max-h-none"
         >
           <source src="/videos/newgate2.mov" type="video/mp4" />
           Your browser does not support the video tag.
