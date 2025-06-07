@@ -24,7 +24,7 @@ export default function FAQPage() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-1">How can I join the OMNI community?</h3>
+            <h3 className="text-lg font-semibold mb-1">Where can I find OMNI?</h3>
             <p className="text-gray-300">
               Join our{' '}
               <a

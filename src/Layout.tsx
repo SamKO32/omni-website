@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 const Layout = () => {
   const location = useLocation();
   const { cart, removeFromCart, showCart, setShowCart, menuOpen, setMenuOpen } = useStore();
+  const isHomePage = location.pathname === '/' || location.pathname === '/home';
 
   useEffect(() => {
     setShowCart(false);
@@ -30,7 +31,7 @@ const Layout = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-black text-white relative">
+    <div>
       {(showCart || menuOpen) && <div className="fixed inset-0 bg-black opacity-90 z-10" onClick={closePanels}></div>}
 
       <Navbar
@@ -54,7 +55,7 @@ const Layout = () => {
         />
       )}
       
-      <main className="pt-24">
+      <main className={isHomePage ? '' : 'pt-24'}>
         <Outlet />
       </main>
 

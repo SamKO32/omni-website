@@ -8,13 +8,15 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if ((input === 'OMNIADMIN') || (input === 'omniadmin')) {
-      setError('');
-      onUnlock();
-      navigate('/store');
-    } else {
-      setError('Incorrect passcode. Try again.');
-    }
+
+    navigate('/home');
+    // if ((input === 'OMNIADMIN') || (input === 'omniadmin')) {
+    //   setError('');
+    //   onUnlock();
+    //   navigate('/store');
+    // } else {
+    //   setError('Incorrect passcode. Try again.');
+    // }
   };
 
   return (
@@ -26,22 +28,42 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
-        <source src="/videos/gatevid.mp4" type="video/mp4" />
+        <source src="/videos/newgate2.mov" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="relative z-10 bg-black bg-opacity-60 p-8 rounded shadow-lg text-center max-w-sm w-full">
-        <p className="mb-6">Under construction. Enter passcode for access.</p>
-        <input
-          type="password"
-          placeholder="Enter passcode"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="border p-2 mb-2 w-full text-black"
-        />
-        <Button onClick={handleSubmit} className="bg-white text-black w-full">Enter</Button>
+      {/* Invisible clickable area */}
+  <div
+    onClick={handleSubmit}
+    className="absolute"
+    style={{
+      top: '70%',
+      left: '50.3%',
+      width: '228px',
+      height: '58px',
+      transform: 'translate(-50%, -50%)',
+      cursor: 'pointer',
+    }}
+  >
+    {/* Optional: add a transparent background to debug click zone */}
+    {/* <div className="w-full h-full bg-red-500 bg-opacity-30" /> */}
+  </div>
+
+      {/* <div className="relative top-40 z-10 bg-transparent bg-opacity-100 p-8 rounded text-center text-xl font-bold max-w-sm w-full">
+        <Button onClick={handleSubmit} className="bg-transparent font-custom text-white w-full animate-blink"> Enter</Button>
         {error && <p className="mt-2 text-red-500">{error}</p>}
-      </div>
+      </div> */}
+      {/* <div className="relative top-40 right-5 z-10 bg-transparent bg-opacity-100 p-8 rounded text-center max-w-sm w-full" 
+      style={{ filter: 'drop-shadow(0 0 8px #ff00ff)' }}>
+        <Button
+          onClick={handleSubmit}
+          className="bg-transparent font-custom text-white w-full text-5xl font-bold animate-blink"
+        >
+          &gt; ENTER
+        </Button>
+        {error && <p className="mt-2 text-red-500">{error}</p>}
+      </div> */}
+
     </div>
   );
 }

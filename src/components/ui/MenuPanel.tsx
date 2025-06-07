@@ -19,7 +19,7 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ close }) => {
       {/* Top Links */}
       <ul className="space-y-2">
         <li>
-          <Link to="/store" onClick={close}>HOME</Link>
+          <Link to="/store" onClick={close}>SHOP</Link>
         </li>
         <li>
           <Link to="/listen" onClick={close}>LISTEN</Link>

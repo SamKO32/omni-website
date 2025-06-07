@@ -19,11 +19,11 @@ const Navbar = ({
 
       {/* Center Logo - absolute and spaced from top */}
       <div className="absolute left-1/2 transform -translate-x-1/2">
-        <Link to="/store">
+        <Link to="/home">
           <img
-            src="/images/OMNI NASA.png"
+            src="/images/O WORLD BONE square.png"
             alt="OMNI Logo"
-            className="h-[70px] mt-2"
+            className="h-[100px]"
           />
         </Link>
       </div>

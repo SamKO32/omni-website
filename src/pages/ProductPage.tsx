@@ -59,7 +59,7 @@ export default function ProductPage() {
 
         {/* Size Selector */}
         <div className="flex justify-center space-x-2 mb-4">
-          {['S', 'M', 'L', 'XL'].map(size => (
+          {product.sizes.map(size => (
             <button
               key={size}
               className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${
