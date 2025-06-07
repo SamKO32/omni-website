@@ -12,6 +12,7 @@ export default function HomePage() {
   };
 
   return (
+    <div className="relative w-screen h-screen overflow-hidden">
     <div className="relative min-h-screen text-white flex items-center justify-center">
       <video
         autoPlay
@@ -139,6 +140,7 @@ export default function HomePage() {
     }}
   ></div>
   
+    </div>
     </div>
   );
 }
