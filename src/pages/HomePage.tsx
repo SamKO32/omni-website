@@ -18,7 +18,7 @@ export default function HomePage() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute top-0 left-0 w-full h-full object-cover"
       >
         <source src="/videos/omni home page.mov" type="video/mp4" />
         Your browser does not support the video tag.
