@@ -1,10 +1,10 @@
 import React from 'react';
+import TVFrame from '../components/ui/TVFrame';
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-12 flex justify-center">
-      <div className="w-full max-w-3xl space-y-16">
-
+    <TVFrame>
+      <div className="max-w-3xl mx-auto space-y-10 text-white">
         {/* FAQ Section */}
         <div className="space-y-6">
           <h2 className="text-2xl font-bold text-center">Frequently Asked Questions</h2>
@@ -97,9 +97,9 @@ export default function FAQPage() {
             </p>
           </section>
 
-          <p className="text-xs text-gray-500 text-center pt-4">Last updated: June 1, 2025</p>
+          <p className="text-xs text-gray-500 text-center pt-4">Last updated: June 2025</p>
         </div>
       </div>
-    </div>
+    </TVFrame>
   );
 }

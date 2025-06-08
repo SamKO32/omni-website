@@ -10,15 +10,16 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-black">
-      <div className="relative w-screen h-screen flex items-center justify-center">
+      <div className="relative min-h-screen text-white flex items-center justify-center">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="h-full w-auto object-contain"
+          className="absolute inset-0 w-full h-full z-10 pointer-events-none"
+          style={{ objectFit: 'fill' }}
         >
-          <source src="/videos/newgate2.mov" type="video/mp4" />
+          <source src="/videos/OMNIGATEPAGE.mov" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 

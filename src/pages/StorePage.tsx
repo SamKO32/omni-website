@@ -3,6 +3,7 @@ import { Button } from '../components/ui/button';
 import { useStore } from '../context/StoreContext';
 import { dummyProducts } from '../data/products';
 import { Link } from 'react-router-dom';
+import TVFrame from '../components/ui/TVFrame';
 
 export default function StorePage() {
   const { addToCart } = useStore();
@@ -10,6 +11,7 @@ export default function StorePage() {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
   return (
+    <TVFrame>
     <div className="pt-20 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-0 p-4 min-h-screen bg-black text-white">
       {dummyProducts.map((product) => {
         const selectedSize = selectedSizes[product.id];
@@ -57,5 +59,6 @@ export default function StorePage() {
         );
       })}
     </div>
+    </TVFrame>
   );
 }

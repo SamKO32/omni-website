@@ -19,9 +19,10 @@ export default function HomePage() {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-contain max-w-none max-h-none"
+        className="absolute top-0 left-0 w-full h-full max-w-none max-h-none"
+        style={{ objectFit: 'fill' }}
       >
-        <source src="/videos/omni home page.mov" type="video/mp4" />
+        <source src="/videos/OMNIHOMEPAGE.mov" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -34,6 +35,20 @@ export default function HomePage() {
       left: '29.2%',
       width: '130px',
       height: '67px',
+      borderRadius: '70px',
+      transform: 'translate(-50%, -50%)',
+      cursor: 'pointer',
+    }}
+  ></div>
+  {/* Back to start */}
+    <div
+    onClick={() => handleSubmit('/')}
+    className="absolute"
+    style={{
+      top: '4%',
+      left: '51.1%',
+      width: '120px',
+      height: '60px',
       borderRadius: '70px',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',

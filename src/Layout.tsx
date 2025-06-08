@@ -32,7 +32,7 @@ const Layout = () => {
 
   return (
     <div>
-      {(showCart || menuOpen) && <div className="fixed inset-0 bg-black opacity-90 z-10" onClick={closePanels}></div>}
+      {/* {(showCart || menuOpen) && <div className="fixed inset-0 bg-black opacity-90 z-10" onClick={closePanels}></div>}
 
       <Navbar
         onMenuClick={() => setMenuOpen(prev => !prev)}
@@ -53,15 +53,17 @@ const Layout = () => {
           close={() => setShowCart(false)}
           subtotal={calculateSubtotal()}
         />
-      )}
+      )} */}
       
-      <main className={isHomePage ? '' : 'pt-24'}>
+      {/* <main className={isHomePage ? '' : 'pt-24'}>
+        <Outlet />
+      </main> */}
+      <main>
         <Outlet />
       </main>
-
-      <footer className="text-center text-xs text-white pb-7">
+      {/* <footer className="text-center text-xs text-white pb-7">
         © 2025, ONTO MY NEXT IDEA
-      </footer>
+      </footer> */}
     </div>
   );
 };

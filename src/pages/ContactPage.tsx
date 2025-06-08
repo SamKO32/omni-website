@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TVFrame from '../components/ui/TVFrame';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ export default function ContactPage() {
   };
 
   return (
+    <TVFrame>
     <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center">
       <div className="max-w-2xl w-full">
         <h1 className="text-3xl font-bold mb-2 text-center">Contact</h1>
@@ -98,5 +100,6 @@ export default function ContactPage() {
         )}
       </div>
     </div>
+    </TVFrame>
   );
 }

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import { dummyProducts } from '../data/products';
+import TVFrame from '../components/ui/TVFrame';
 
 export default function ProductPage() {
+
   const { id } = useParams();
   const product = dummyProducts.find(p => p.id === parseInt(id ?? '0'));
   const { addToCart } = useStore();
@@ -30,7 +32,8 @@ export default function ProductPage() {
   };
 
   return (
-    <div className="bg-black min-h-screen text-white pt-24 px-4 flex flex-col">
+    <TVFrame>
+    <div className="relative min-h-screen text-white pt-24 px-4 flex flex-col">
       <div className="max-w-2xl mx-auto text-center flex-1">
 
         {/* Main Image */}
@@ -113,5 +116,7 @@ export default function ProductPage() {
         </div>
       </div>
     </div>
+    </TVFrame>
+    
   );
 }
