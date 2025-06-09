@@ -5,6 +5,7 @@ import Navbar from './components/ui/Navbar';
 import MenuPanel from './components/ui/MenuPanel';
 import CartPanel, { CartItem } from './components/ui/CartPanel';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = () => {
   const location = useLocation();
@@ -30,8 +31,21 @@ const Layout = () => {
     size: item.size ?? 'N/A',
   }));
 
+  const navigate = useNavigate();
+
   return (
     <div>
+      <div
+        onClick={() => navigate(-1)}
+        style={{ left: '220px', top: '100px' }}
+      className="fixed z-50 cursor-pointer hover:scale-110 transition-transform duration-200"
+      >
+        <img
+          src="/images/backbutton.png" // <-- your custom cursor/back icon here
+          alt="Go Back"
+          className="w-20 h-20"
+        />
+      </div>
       {/* {(showCart || menuOpen) && <div className="fixed inset-0 bg-black opacity-90 z-10" onClick={closePanels}></div>}
 
       <Navbar

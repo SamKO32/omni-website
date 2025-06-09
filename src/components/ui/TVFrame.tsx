@@ -18,8 +18,11 @@ export default function TVFrame({ children }: { children: React.ReactNode }) {
       />
 
       {/* Inner screen content area */}
-      <div className="absolute inset-[15%] sm:inset-[12%] md:inset-[10%] z-20 flex items-center justify-center">
-        <div className="w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-transparent p-4">
+      <div
+        className="absolute inset-[15%] sm:inset-[12%] md:inset-[10%] z-20 flex items-center justify-center -mt-[14px] -ml-[14px] rounded-3xl"
+        style={{ width: '1570px', height: '809px' }}
+      >
+        <div className="w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-black-track">
           {children}
         </div>
       </div>

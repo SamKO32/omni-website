@@ -10,3 +10,16 @@ body {
   overscroll-behavior: none;
   background-color: black;
 }
+
+.scrollbar-black-track::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-black-track::-webkit-scrollbar-track {
+  background: black;
+}
+
+.scrollbar-black-track::-webkit-scrollbar-thumb {
+  background-color: #6b7280; /* Tailwind gray-500 */
+  border-radius: 10px;
+}
