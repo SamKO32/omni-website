@@ -19,7 +19,7 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
           className="absolute inset-0 w-full h-full z-10 pointer-events-none"
           style={{ objectFit: 'fill' }}
         >
-          <source src="/videos/OMNIGATEPAGE.mov" type="video/mp4" />
+          <source src="/videos/GATEPAGEBG.mov" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 

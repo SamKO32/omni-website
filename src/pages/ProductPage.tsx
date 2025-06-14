@@ -5,7 +5,6 @@ import { dummyProducts } from '../data/products';
 import TVFrame from '../components/ui/TVFrame';
 
 export default function ProductPage() {
-
   const { id } = useParams();
   const product = dummyProducts.find(p => p.id === parseInt(id ?? '0'));
   const { addToCart } = useStore();
@@ -14,7 +13,62 @@ export default function ProductPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [infoTab, setInfoTab] = useState<'details' | 'fit' | 'shipping'>('details');
 
-  if (!product) return <div className="text-white p-6">Product not found.</div>;
+  if (!product) {
+    return (
+      <>
+        {/* Full-screen background video */}
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 0,
+          overflow: 'hidden',
+        }}>
+          <video
+            autoPlay
+            loop
+            muted
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          >
+            <source src="/videos/tron.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        {/* Centered, scrollable content */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '90%',
+          maxWidth: '600px',
+          maxHeight: '80vh',
+          padding: '2rem',
+          overflowY: 'auto',
+          zIndex: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          backgroundColor: 'transparent',
+          borderRadius: '0',
+        }}>
+          <h1 style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold', textAlign: 'center' }}>
+            Product not found.
+          </h1>
+        </div>
+
+        {/* TV frame overlay */}
+        <TVFrame><></></TVFrame>
+      </>
+    );
+  }
 
   const images = [product.image, ...(product.extraImages ?? [])];
 
@@ -32,42 +86,116 @@ export default function ProductPage() {
   };
 
   return (
-    <TVFrame>
-    <div className="relative min-h-screen text-white pt-24 px-4 flex flex-col">
-      <div className="max-w-2xl mx-auto text-center flex-1">
+    <>
+      {/* Full-screen background video */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 0,
+        overflow: 'hidden',
+      }}>
+        <video
+          autoPlay
+          loop
+          muted
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        >
+          <source src="/videos/placeholder.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      {/* Centered, scrollable content */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '90%',
+        maxWidth: '600px',
+        maxHeight: '80vh',
+        padding: '2rem',
+        overflowY: 'auto',
+        zIndex: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'transparent',
+        borderRadius: '0',
+      }}
+      className='hide-scrollbar'>
+        <h1 className="font-custom" style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>
+          {product.name}
+        </h1>
+        <p className="font-custom" style={{ color: '#ccc', textAlign: 'center', marginBottom: '1rem' }}>
+          {product.price}
+        </p>
 
         {/* Main Image */}
         <img
           src={selectedImage || product.image}
           alt={product.name}
-          className="w-full mb-4 object-cover"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            marginBottom: '1rem',
+            borderRadius: '0.5rem',
+          }}
         />
-        <div className="flex justify-center space-x-2 mb-4">
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '0.5rem',
+          marginBottom: '1rem',
+        }}>
           {images.map((img, index) => (
             <img
               key={index}
               src={img}
               alt={`Thumbnail ${index + 1}`}
-              className={`w-16 h-16 object-cover border cursor-pointer ${
-                selectedImage === img ? 'border-white' : 'border-gray-600'
-              }`}
+              style={{
+                width: '48px',
+                height: '48px',
+                objectFit: 'cover',
+                border: `2px solid ${selectedImage === img ? 'white' : '#666'}`,
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
               onClick={() => setSelectedImage(img)}
             />
           ))}
         </div>
 
-        {/* Product Title & Price */}
-        <h1 className="text-2xl font-bold mb-1">{product.name}</h1>
-        <p className="text-lg mb-4 text-gray-300">{product.price}</p>
-
         {/* Size Selector */}
-        <div className="flex justify-center space-x-2 mb-4">
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '0.5rem',
+          marginBottom: '1rem',
+        }}>
           {product.sizes.map(size => (
             <button
               key={size}
-              className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${
-                selectedSize === size ? 'bg-white text-black' : 'text-white border-white'
-              }`}
+              className="font-custom"
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: '1px solid white',
+                background: selectedSize === size ? 'white' : 'transparent',
+                color: selectedSize === size ? 'black' : 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+              }}
               onClick={() => setSelectedSize(size)}
             >
               {size}
@@ -79,44 +207,91 @@ export default function ProductPage() {
         <button
           disabled={!selectedSize}
           onClick={() => addToCart({ ...product, size: selectedSize ?? undefined })}
-          className={`w-full py-2 rounded mb-6 font-semibold transition ${
-            selectedSize
-              ? 'bg-white text-black hover:bg-gray-300'
-              : 'bg-gray-700 text-gray-400 cursor-not-allowed'
-          }`}
+          className="font-custom"
+          style={{
+            width: '100%',
+            padding: '0.75rem',
+            borderRadius: '0.5rem',
+            background: selectedSize ? 'white' : '#444',
+            color: selectedSize ? 'black' : '#888',
+            border: 'none',
+            fontWeight: 'bold',
+            cursor: selectedSize ? 'pointer' : 'not-allowed',
+            marginBottom: '1rem',
+          }}
         >
           Add to Cart
         </button>
 
         {/* Info Toggle Panel */}
-        <div className="border-t border-gray-700 pt-4 pb-20">
-          <div className="flex justify-center space-x-6 mb-4 text-sm font-medium">
+        <div style={{
+          borderTop: '1px solid #444',
+          paddingTop: '1rem',
+          paddingBottom: '1rem',
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '1.5rem',
+            marginBottom: '1rem',
+            fontSize: '0.9rem',
+            fontWeight: '500',
+          }}>
             <button
               onClick={() => setInfoTab('details')}
-              className={infoTab === 'details' ? 'underline' : 'hover:underline'}
+              className="font-custom"
+              style={{
+                textDecoration: infoTab === 'details' ? 'underline' : 'none',
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+              }}
             >
               DETAILS
             </button>
             <button
               onClick={() => setInfoTab('fit')}
-              className={infoTab === 'fit' ? 'underline' : 'hover:underline'}
+              className="font-custom"
+              style={{
+                textDecoration: infoTab === 'fit' ? 'underline' : 'none',
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+              }}
             >
               FIT / SIZING
             </button>
             <button
               onClick={() => setInfoTab('shipping')}
-              className={infoTab === 'shipping' ? 'underline' : 'hover:underline'}
+              className="font-custom"
+              style={{
+                textDecoration: infoTab === 'shipping' ? 'underline' : 'none',
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+              }}
             >
               SHIPPING
             </button>
           </div>
-          <pre className="whitespace-pre-wrap text-sm text-gray-300">
+          <pre 
+            className="font-custom"
+            style={{
+            whiteSpace: 'pre-wrap',
+            fontSize: '0.9rem',
+            color: '#ccc',
+            margin: 0,
+          }}>
             {renderInfoText()}
           </pre>
         </div>
       </div>
-    </div>
-    </TVFrame>
-    
+
+      {/* TV frame overlay */}
+      <TVFrame><></></TVFrame>
+    </>
   );
 }

@@ -11,54 +11,104 @@ export default function StorePage() {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
   return (
-    <TVFrame>
-    <div className="pt-20 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-0 p-4 min-h-screen bg-black text-white">
-      {dummyProducts.map((product) => {
-        const selectedSize = selectedSizes[product.id];
+    <>
+      {/* Full-screen background video */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 0,
+        overflow: 'hidden',
+      }}>
+        <video
+          autoPlay
+          loop
+          muted
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        >
+          <source src="/videos/filler.mov" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
 
-        return (
-          <div key={product.id} className="p-4 bg-black">
-            <Link to={`/product/${product.id}`}>
-              <img
-                src={hoveredProductId === product.id && product.hoverImage ? product.hoverImage : product.image}
-                alt={product.name}
-                className="w-full max-w-[450px] mx-auto aspect-square object-cover mb-1 transition-transform hover:scale-105"
-                onMouseEnter={() => setHoveredProductId(product.id)}
-                onMouseLeave={() => setHoveredProductId(null)}
-              />
-            </Link>
+      {/* Centered, scrollable content */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '90%',
+        maxWidth: '1200px',
+        maxHeight: '80vh',
+        padding: '2rem',
+        overflowY: 'auto',
+        zIndex: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'transparent',
+        borderRadius: '0',
+      }}
+      className='hide-scrollbar'>
 
-            {/* <div className="flex justify-center space-x-2 mb-2">
-              {['S', 'M', 'L', 'XL'].map((size) => (
-                <button
-                  key={size}
-                  className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${selectedSize === size ? 'bg-black text-white' : 'bg-white text-black'}`}
-                  onClick={() => setSelectedSizes((prev) => ({ ...prev, [product.id]: size }))}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          {dummyProducts.map((product) => {
+            const selectedSize = selectedSizes[product.id];
 
-            <Link to={`/product/${product.id}`}>
-              <h2 className="text-center text-lg font-semibold text-white hover:underline">{product.name}</h2>
-            </Link>
-            <p className="text-center text-gray-600">{product.price}</p>
+            return (
+              <div key={product.id} className="p-4 bg-transparent rounded-lg">
+                <Link to={`/product/${product.id}`}>
+                  <img
+                    src={hoveredProductId === product.id && product.hoverImage ? product.hoverImage : product.image}
+                    alt={product.name}
+                    className="w-full max-w-[400px] mx-auto aspect-square object-cover mb-2 transition-transform hover:scale-105"
+                    onMouseEnter={() => setHoveredProductId(product.id)}
+                    onMouseLeave={() => setHoveredProductId(null)}
+                  />
+                </Link>
 
-            {selectedSize ? (
-              <Button
-                className="mt-2 w-full bg-gray-800 text-white hover:bg-gray-900"
-                onClick={() => addToCart({ ...product, size: selectedSize })}
-              >
-                Add to Cart
-              </Button>
-            ) : (
-              <p className="mt-2 text-center text-sm text-gray-400">Select Size</p>
-            )} */}
-          </div>
-        );
-      })}
-    </div>
-    </TVFrame>
+                {/* Size selector (commented out as in your original) */}
+                {/* <div className="flex justify-center space-x-2 mb-2">
+                  {['S', 'M', 'L', 'XL'].map((size) => (
+                    <button
+                      key={size}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${selectedSize === size ? 'bg-black text-white' : 'bg-white text-black'}`}
+                      onClick={() => setSelectedSizes((prev) => ({ ...prev, [product.id]: size }))}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div> */}
+
+                <Link to={`/product/${product.id}`}>
+                  <h2 className="text-center text-lg font-semibold font-custom text-white hover:underline">{product.name}</h2>
+                </Link>
+                <p className="text-center text-white font-custom">{product.price}</p>
+
+                {/* Add to cart button (commented out as in your original) */}
+                {/* {selectedSize ? (
+                  <Button
+                    className="mt-2 w-full bg-gray-800 text-white hover:bg-gray-900"
+                    onClick={() => addToCart({ ...product, size: selectedSize })}
+                  >
+                    Add to Cart
+                  </Button>
+                ) : (
+                  <p className="mt-2 text-center text-sm text-gray-400">Select Size</p>
+                )} */}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* TV frame overlay */}
+      <TVFrame><></></TVFrame>
+    </>
   );
 }

@@ -22,7 +22,7 @@ export default function HomePage() {
         className="absolute top-0 left-0 w-full h-full max-w-none max-h-none"
         style={{ objectFit: 'fill' }}
       >
-        <source src="/videos/OMNIHOMEPAGE.mov" type="video/mp4" />
+        <source src="/videos/HOMEPAGEBG.mov" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -85,7 +85,7 @@ export default function HomePage() {
     className="absolute"
     style={{
       top: '68.5%',
-      left: '43.5%',
+      left: '43%',
       width: '140px',
       height: '44px',
       transform: 'translate(-50%, -50%)',
@@ -135,7 +135,7 @@ export default function HomePage() {
     className="absolute"
     style={{
       top: '68.5%',
-      left: '67.25%',
+      left: '67.5%',
       width: '177px',
       height: '44px',
       transform: 'translate(-50%, -50%)',

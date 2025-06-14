@@ -1,45 +1,21 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function TVFrame({ children }: { children: React.ReactNode }) {
-  const navigate = useNavigate();
-
-  const handleSubmit = () => {
-    navigate('/home');
-  };
-
   return (
-    <div className="relative w-screen h-screen bg-black overflow-hidden">
-      {/* TV Bezel / Frame */}
-      <img
-        src="/images/OMNIPCFRAME.png"
-        alt="TV Frame"
-        className="absolute inset-0 w-full h-full z-10 pointer-events-none"
-      />
-
-      {/* Inner screen content area */}
-      <div
-        className="absolute inset-[15%] sm:inset-[12%] md:inset-[10%] z-20 flex items-center justify-center -mt-[14px] -ml-[14px] rounded-3xl"
-        style={{ width: '1570px', height: '809px' }}
-      >
-        <div className="w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-black-track">
-          {children}
-        </div>
-      </div>
-
-      {/* Invisible clickable area */}
-      <div
-        onClick={handleSubmit}
-        className="absolute z-30"
-        style={{
-          top: '4%',
-          left: '51.1%',
-          width: '120px',
-          height: '58px',
-          transform: 'translate(-50%, -50%)',
-          cursor: 'pointer',
-        }}
-      />
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      pointerEvents: 'none',
+      zIndex: 10,
+      backgroundImage: 'url("/images/tvframenew.png")',
+      backgroundSize: '100% 100%',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
+      {children}
     </div>
   );
 }
