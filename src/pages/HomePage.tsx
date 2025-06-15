@@ -26,29 +26,15 @@ export default function HomePage() {
         Your browser does not support the video tag.
       </video>
 
-      {/* Back to start */}
-    <div
-    onClick={() => handleSubmit('/')}
-    className="absolute"
-    style={{
-      top: '26.7%',
-      left: '29.2%',
-      width: '130px',
-      height: '67px',
-      borderRadius: '70px',
-      transform: 'translate(-50%, -50%)',
-      cursor: 'pointer',
-    }}
-  ></div>
   {/* Back to start */}
     <div
     onClick={() => handleSubmit('/')}
     className="absolute"
     style={{
-      top: '4%',
-      left: '51.1%',
-      width: '120px',
-      height: '60px',
+      top: '4vh',
+      left: '50vw',
+      width: '9.5vw',
+      height: '7vh',
       borderRadius: '70px',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
@@ -59,10 +45,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/store')}
     className="absolute"
     style={{
-      top: '68.5%',
-      left: '31.75%',
-      width: '103px',
-      height: '44px',
+      top: '68.5vh',
+      left: '31.5vw',
+      width: '8vw',
+      height: '7vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -71,10 +57,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/store')}
     className="absolute"
     style={{
-      top: '50%',
-      left: '31.25%',
-      width: '155px',
-      height: '150px',
+      top: '50vh',
+      left: '31.5vw',
+      width: '11vw',
+      height: '18vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -84,10 +70,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/listen')}
     className="absolute"
     style={{
-      top: '68.5%',
-      left: '43%',
-      width: '140px',
-      height: '44px',
+      top: '68.5vh',
+      left: '43vw',
+      width: '10vw',
+      height: '7vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -96,10 +82,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/listen')}
     className="absolute"
     style={{
-      top: '50%',
-      left: '43.25%',
-      width: '130px',
-      height: '150px',
+      top: '50vh',
+      left: '43.5vw',
+      width: '9vw',
+      height: '18vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -109,10 +95,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/faq')}
     className="absolute"
     style={{
-      top: '68.5%',
-      left: '55.25%',
-      width: '132px',
-      height: '44px',
+      top: '68.5vh',
+      left: '55vw',
+      width: '10vw',
+      height: '7vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -121,10 +107,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/faq')}
     className="absolute"
     style={{
-      top: '50%',
-      left: '55.55%',
-      width: '105px',
-      height: '145px',
+      top: '50vh',
+      left: '55.5vw',
+      width: '7.5vw',
+      height: '18vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -134,10 +120,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/contact')}
     className="absolute"
     style={{
-      top: '68.5%',
-      left: '67.5%',
-      width: '177px',
-      height: '44px',
+      top: '68.5vh',
+      left: '67.5vw',
+      width: '13vw',
+      height: '7vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}
@@ -146,10 +132,10 @@ export default function HomePage() {
     onClick={() => handleSubmit('/contact')}
     className="absolute"
     style={{
-      top: '50.5%',
-      left: '67.25%',
-      width: '100px',
-      height: '150px',
+      top: '51vh',
+      left: '67.25vw',
+      width: '6.5vw',
+      height: '18vh',
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
     }}

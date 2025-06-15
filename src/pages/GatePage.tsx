@@ -22,21 +22,21 @@ export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
           <source src="/videos/GATEPAGEBG.mov" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-
-        {/* Invisible clickable area */}
         <div
-          onClick={handleSubmit}
-          className="absolute z-10"
-          style={{
-            top: '70%',
-            left: '50.3%',
-            width: '228px',
-            height: '58px',
-            transform: 'translate(-50%, -50%)',
-            cursor: 'pointer',
-          }}
-        />
+            onClick={handleSubmit}
+            className="absolute"
+            style={{
+              top: '68.5vh',
+              left: '50.5vw',
+              width: '12vw',
+              height: '7vh',
+              transform: 'translate(-50%, -50%)',
+              cursor: 'pointer',
+            }}
+          ></div>
       </div>
+       
     </div>
+    
   );
 }
