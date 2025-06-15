@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import { dummyProducts } from '../data/products';
 import TVFrame from '../components/ui/TVFrame';
+import CartPopup from '../components/ui/CartPopup';
 
 export default function ProductPage() {
   const { id } = useParams();
   const product = dummyProducts.find(p => p.id === parseInt(id ?? '0'));
   const { addToCart } = useStore();
+    const [showCart, setShowCart] = useState(false);
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -206,7 +208,10 @@ export default function ProductPage() {
         {/* Add to Cart Button */}
         <button
           disabled={!selectedSize}
-          onClick={() => addToCart({ ...product, size: selectedSize ?? undefined })}
+          onClick={() => {
+            addToCart({ ...product, size: selectedSize ?? undefined }); 
+            setShowCart(true)
+          }}
           className="font-custom"
           style={{
             width: '100%',
@@ -288,6 +293,17 @@ export default function ProductPage() {
             {renderInfoText()}
           </pre>
         </div>
+                  <button onClick={() => setShowCart(!showCart)}
+                    className="fixed top-4 right-4 z-40 bg-white font-custom text-black px-4 py-2 rounded-full shadow-lg hover:bg-gray-400 transition"
+                    style={{
+                      top:"4vh",
+                      right:"10vh"
+                    }}
+                  >
+                  🛒 CART
+                </button>
+                {showCart && <CartPopup onClose={() => setShowCart(false)} />}
+
       </div>
 
       {/* TV frame overlay */}

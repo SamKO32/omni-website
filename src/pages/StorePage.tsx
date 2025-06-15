@@ -4,9 +4,11 @@ import { useStore } from '../context/StoreContext';
 import { dummyProducts } from '../data/products';
 import { Link } from 'react-router-dom';
 import TVFrame from '../components/ui/TVFrame';
+import CartPopup from '../components/ui/CartPopup';
 
 export default function StorePage() {
   const { addToCart } = useStore();
+  const [showCart, setShowCart] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState<Record<number, string>>({});
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
@@ -105,7 +107,19 @@ export default function StorePage() {
             );
           })}
         </div>
+          <button onClick={() => setShowCart(!showCart)}
+            className="fixed top-4 right-4 z-40 bg-white font-custom text-black px-4 py-2 rounded-full shadow-lg hover:bg-gray-400 transition"
+            style={{
+              top:"4vh",
+              right:"10vh"
+            }}
+          >
+          🛒 CART
+        </button>
+        {showCart && <CartPopup onClose={() => setShowCart(false)} />}
       </div>
+      
+
 
       {/* TV frame overlay */}
       <TVFrame><></></TVFrame>
