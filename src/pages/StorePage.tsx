@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import { useStore } from '../context/StoreContext';
 import { dummyProducts } from '../data/products';
@@ -8,9 +8,15 @@ import CartPopup from '../components/ui/CartPopup';
 
 export default function StorePage() {
   const { addToCart } = useStore();
-  const [showCart, setShowCart] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState<Record<number, string>>({});
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+  const [showCart, setShowCart] = useState(false);
+
+  // Disable scroll when cart is open
+  useEffect(() => {
+    document.body.style.overflow = showCart ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [showCart]);
 
   return (
     <>
@@ -38,6 +44,20 @@ export default function StorePage() {
           Your browser does not support the video tag.
         </video>
       </div>
+
+      {/* 🛒 Cart Button */}
+     <button
+        onClick={() => setShowCart(true)}
+        style={{
+          top: '15vh',
+          right: '12vw',
+          backgroundColor: 'white',
+          color: 'black',
+        }}
+        className="fixed z-40 font-custom px-4 py-2 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"
+      >
+        🛒 CART
+      </button>
 
       {/* Centered, scrollable content */}
       <div style={{
@@ -74,54 +94,31 @@ export default function StorePage() {
                   />
                 </Link>
 
-                {/* Size selector (commented out as in your original) */}
-                {/* <div className="flex justify-center space-x-2 mb-2">
-                  {['S', 'M', 'L', 'XL'].map((size) => (
-                    <button
-                      key={size}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center border transition ${selectedSize === size ? 'bg-black text-white' : 'bg-white text-black'}`}
-                      onClick={() => setSelectedSizes((prev) => ({ ...prev, [product.id]: size }))}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div> */}
-
                 <Link to={`/product/${product.id}`}>
                   <h2 className="text-center text-lg font-semibold font-custom text-white hover:underline">{product.name}</h2>
                 </Link>
                 <p className="text-center text-white font-custom">{product.price}</p>
-
-                {/* Add to cart button (commented out as in your original) */}
-                {/* {selectedSize ? (
-                  <Button
-                    className="mt-2 w-full bg-gray-800 text-white hover:bg-gray-900"
-                    onClick={() => addToCart({ ...product, size: selectedSize })}
-                  >
-                    Add to Cart
-                  </Button>
-                ) : (
-                  <p className="mt-2 text-center text-sm text-gray-400">Select Size</p>
-                )} */}
               </div>
             );
           })}
         </div>
-          <button onClick={() => setShowCart(!showCart)}
-            className="fixed top-4 right-4 z-40 bg-white font-custom text-black px-4 py-2 rounded-full shadow-lg hover:bg-gray-400 transition"
-            style={{
-              top:"4vh",
-              right:"10vh"
-            }}
-          >
-          🛒 CART
-        </button>
-        {showCart && <CartPopup onClose={() => setShowCart(false)} />}
       </div>
-      
 
+      {/* Modal cart + background */}
+      {showCart && (
+        <>
+          {/* 🔒 Backdrop that disables interaction & closes on click */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-60 z-40"
+            onClick={() => setShowCart(false)}
+          />
 
-      {/* TV frame overlay */}
+          {/* 🛒 Cart popup itself */}
+          <CartPopup onClose={() => setShowCart(false)} />
+        </>
+      )}
+
+      {/* TV Frame */}
       <TVFrame><></></TVFrame>
     </>
   );
