@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
-import { dummyProducts } from '../data/products';
+import { products } from '../data/products';
 import TVFrame from '../components/ui/TVFrame';
 import CartPopup from '../components/ui/CartPopup';
 
 export default function ProductPage() {
   const { id } = useParams();
-  const product = dummyProducts.find(p => p.id === parseInt(id ?? '0'));
+  const product = products.find(p => p.id === parseInt(id ?? '0'));
   const { addToCart } = useStore();
   const [showCart, setShowCart] = useState(false);
 

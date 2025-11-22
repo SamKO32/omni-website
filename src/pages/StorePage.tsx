@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import { useStore } from '../context/StoreContext';
-import { dummyProducts } from '../data/products';
+import { products } from '../data/products';
 import { Link } from 'react-router-dom';
 import TVFrame from '../components/ui/TVFrame';
 import CartPopup from '../components/ui/CartPopup';
@@ -79,7 +79,7 @@ export default function StorePage() {
       className='hide-scrollbar'>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-          {dummyProducts.map((product) => {
+          {products.map((product) => {
             const selectedSize = selectedSizes[product.id];
 
             return (
