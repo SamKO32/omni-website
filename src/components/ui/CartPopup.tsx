@@ -112,8 +112,19 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
       )}
 
       {groupedItems.length > 0 && (
-        <div className="mt-6 text-right">
-          <p className="font-semibold">Subtotal: ${calculateSubtotal()}</p>
+        <div className="mt-6">
+          <p className="font-semibold text-right">Subtotal: ${calculateSubtotal()}</p>
+
+          <button
+            onClick={() => console.log("click")}
+            className="mt-4 w-full font-custom px-4 py-2 rounded-full shadow-lg border border-black hover:scale-105 transition-transform duration-200"
+            style={{
+              backgroundColor: 'white',
+              color: 'black',
+            }}
+          >
+            CHECKOUT
+          </button>
         </div>
       )}
     </div>
