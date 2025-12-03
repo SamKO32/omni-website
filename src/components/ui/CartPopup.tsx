@@ -1,6 +1,7 @@
 // components/ui/CartPopup.tsx
 import React, { useEffect, useState } from 'react';
 import { useStore } from '../../context/StoreContext';
+import { createShopifyCheckout } from '../../../lib/shopify';
 
 export default function CartPopup({ onClose }: { onClose: () => void }) {
   const { cart, removeFromCart, addToCart } = useStore();
@@ -62,6 +63,32 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     }
   };
 
+    const handleCheckout = async () => {
+    try {
+      console.log("inside of handleCheckout");
+      
+      const data = await createShopifyCheckout(groupedItems);
+      console.log("Shopify checkout response:", data);
+
+      const url =
+        data?.data?.cartLinesAdd?.cart?.checkoutUrl ??
+        data?.data?.cartCreate?.cart?.checkoutUrl;
+
+
+      if (!url) {
+        console.error("Checkout URL missing:", data);
+        alert("Something went wrong creating your checkout. Please try again.");
+        return;
+      }
+
+      // Redirect users to Shopify
+      window.location.href = url;
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      alert("We couldn’t connect to Shopify. Please try again.");
+    }
+  };
+
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[420px] max-h-[80vh] bg-white border border-black text-black p-6 rounded-lg shadow-xl z-50 overflow-y-auto font-custom">
       <div className="flex justify-between items-center mb-4">
@@ -116,7 +143,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
           <p className="font-semibold text-right">Subtotal: ${calculateSubtotal()}</p>
 
           <button
-            onClick={() => console.log("click")}
+            onClick={handleCheckout}
             className="mt-4 w-full font-custom px-4 py-2 rounded-full shadow-lg border border-black hover:scale-105 transition-transform duration-200"
             style={{
               backgroundColor: 'white',

@@ -119,7 +119,18 @@ export default function ProductPage() {
         <button
           disabled={!selectedSize}
           onClick={() => {
-            addToCart({ ...product, size: selectedSize ?? undefined });
+            const selectedVariant = product.variants?.find(
+              v => v.size === selectedSize
+            );
+
+            if (!selectedVariant) return;
+
+            addToCart({
+              ...product,
+              size: selectedSize!,
+              variantId: selectedVariant.variantId
+            });
+
             setShowCart(true);
           }}
           className="font-custom w-full py-3 rounded font-bold mb-4"
