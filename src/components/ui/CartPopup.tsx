@@ -65,10 +65,8 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
 
     const handleCheckout = async () => {
     try {
-      console.log("inside of handleCheckout");
       
       const data = await createShopifyCheckout(groupedItems);
-      console.log("Shopify checkout response:", data);
 
       const url =
         data?.data?.cartLinesAdd?.cart?.checkoutUrl ??
