@@ -6,6 +6,7 @@ import { createShopifyCheckout } from '../../../lib/shopify';
 export default function CartPopup({ onClose }: { onClose: () => void }) {
   const { cart, removeFromCart, addToCart } = useStore();
   const [groupedItems, setGroupedItems] = useState<any[]>([]);
+  const { clearCart } = useStore();
 
   useEffect(() => {
     const grouped = cart.reduce((acc, item) => {
@@ -80,6 +81,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
       }
 
       // Redirect users to Shopify
+      clearCart();
       window.location.href = url;
     } catch (error) {
       console.error("Error during checkout:", error);
