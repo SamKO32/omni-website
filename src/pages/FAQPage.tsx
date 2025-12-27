@@ -9,8 +9,8 @@ export default function FAQPage() {
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '100vw',
-        height: '100vh',
+        width: '100dvw',
+        height: '100dvh',
         zIndex: 0,
         overflow: 'hidden',
       }}>

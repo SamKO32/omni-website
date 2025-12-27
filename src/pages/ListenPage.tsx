@@ -6,7 +6,7 @@ export default function ListenPage() {
   return (
     <>
       {/* Background Video */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100dvh', zIndex: 0, overflow: 'hidden' }}>
         <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
           <source src="/videos/LISTENPAGEBG.mov" type="video/mp4" />
         </video>

@@ -7,7 +7,7 @@ export default function TVFrame({ children }: { children: React.ReactNode }) {
       top: 0,
       left: 0,
       width: '100vw',
-      height: '100vh',
+      height: '100dvh',
       pointerEvents: 'none',
       zIndex: 10,
       backgroundImage: 'url("/images/tvframenew.png")',

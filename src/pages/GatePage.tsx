@@ -1,42 +1,41 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate('/home');
+    // onUnlock();
+    navigate("/home");
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black">
-      <div className="relative min-h-screen text-white flex items-center justify-center">
+    <div className="relative w-screen h-[100dvh] overflow-hidden bg-black">
+      <div className="relative h-full w-full text-white">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full z-10 pointer-events-none"
-          style={{ objectFit: 'fill' }}
+          className="absolute inset-0 h-full w-full pointer-events-none"
+          style={{ objectFit: "fill" }}
         >
           <source src="/videos/GATEPAGEBG.mov" type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
-        <div
-            onClick={handleSubmit}
-            className="absolute"
-            style={{
-              top: '68.5vh',
-              left: '50.5vw',
-              width: '12vw',
-              height: '7vh',
-              transform: 'translate(-50%, -50%)',
-              cursor: 'pointer',
-            }}
-          ></div>
+
+        {/* Click area */}
+        <button
+          type="button"
+          onClick={handleSubmit}
+          aria-label="Enter"
+          className="
+            absolute -translate-x-1/2 -translate-y-1/2
+            cursor-pointer
+            top-[68dvh] left-[50vw] w-[30vw] h-[9dvh]
+            sm:top-[68.5vh] sm:left-[50.5vw] sm:w-[12vw] sm:h-[7vh]
+          "
+        />
       </div>
-       
     </div>
-    
   );
 }
