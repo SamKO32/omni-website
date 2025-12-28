@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Layout = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   return (

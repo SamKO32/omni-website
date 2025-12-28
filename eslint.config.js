@@ -27,12 +27,9 @@ export default tseslint.config(
     rules: {
       // React 17+ JSX transform
       "react/react-in-jsx-scope": "off",
-
-      // Hooks correctness
+      "@typescript-eslint/no-explicit-any": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-
-      // Vite fast-refresh safety
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },

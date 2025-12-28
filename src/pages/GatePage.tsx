@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function GatePage({ onUnlock }: { onUnlock: () => void }) {
+export default function GatePage() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    // onUnlock();
     navigate("/home");
   };
 

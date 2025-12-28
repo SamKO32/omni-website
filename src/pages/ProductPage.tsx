@@ -14,6 +14,8 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [infoTab, setInfoTab] = useState<'details' | 'fit' | 'shipping'>('details');
+  type InfoTab = "details" | "fit" | "shipping";
+  const TABS: InfoTab[] = ["details", "fit", "shipping"];
 
   useEffect(() => {
     document.body.style.overflow = showCart ? 'hidden' : '';
@@ -146,11 +148,24 @@ export default function ProductPage() {
 
         <div className="border-t border-gray-600 pt-4 pb-10">
           <div className="flex justify-center gap-6 text-sm font-medium mb-3 font-custom">
-            {['details', 'fit', 'shipping'].map(tab => (
+            {/* {['details', 'fit', 'shipping'].map(tab => (
               <button
                 key={tab}
                 onClick={() => setInfoTab(tab as any)}
                 style={{ textDecoration: infoTab === tab ? 'underline' : 'none', color: 'white' }}
+                className="bg-transparent border-none cursor-pointer"
+              >
+                {tab.toUpperCase()}
+              </button>
+            ))} */}
+            {TABS.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setInfoTab(tab)}
+                style={{
+                  textDecoration: infoTab === tab ? "underline" : "none",
+                  color: "white",
+                }}
                 className="bg-transparent border-none cursor-pointer"
               >
                 {tab.toUpperCase()}
