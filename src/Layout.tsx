@@ -1,29 +1,36 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Layout = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      <div
+      <button
+        type="button"
+        aria-label="Go back"
         onClick={() => navigate(-1)}
-        style={{ left: '12vw', top: '12vh' }}
-      className="fixed z-50 cursor-pointer hover:scale-110 transition-transform duration-200"
+        className="
+          fixed z-50 cursor-pointer
+          transition-transform duration-200 hover:scale-110
+
+          /* Mobile (default): higher + a little more left */
+          left-[13vw] top-[10dvh]
+
+          /* Laptop+ (sm and up): your original placement */
+          sm:left-[12vw] sm:top-[12vh]
+        "
       >
         <img
           src="/images/backbutton.png"
           alt="Go Back"
-          className="w-20 h-20"
+          className="w-14 h-14 sm:w-20 sm:h-20"
         />
-      </div>
+      </button>
+
       <main>
         <Outlet />
       </main>
-      {/* <footer className="text-center text-xs text-white pb-7">
-        © 2025, ONTO MY NEXT IDEA
-      </footer> */}
     </div>
   );
 };

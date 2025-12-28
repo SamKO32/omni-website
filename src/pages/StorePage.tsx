@@ -44,13 +44,20 @@ export default function StorePage() {
       {/* 🛒 Cart Button */}
      <button
         onClick={() => setShowCart(true)}
-        style={{
-          top: '15vh',
-          right: '12vw',
-          backgroundColor: 'white',
-          color: 'black',
-        }}
-        className="fixed z-40 font-custom px-4 py-2 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"
+        className="
+          fixed z-40 font-custom rounded-full shadow-lg
+          transition-transform duration-200 hover:scale-110
+
+          /* MOBILE (default) */
+          top-[11.5dvh] right-[13dvw]
+          px-3 py-1.5 text-xs
+
+          /* TABLET + DESKTOP */
+          sm:top-[14.5vh] sm:right-[12vw]
+          sm:px-4 sm:py-2 sm:text-sm
+
+          bg-white text-black
+        "
       >
         🛒 CART
       </button>
