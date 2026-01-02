@@ -90,7 +90,18 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[420px] max-h-[80vh] bg-white border border-black text-black p-6 rounded-lg shadow-xl z-50 overflow-y-auto font-custom">
+    <div
+  className="
+    fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+    w-[70vw] max-w-[420px]
+    max-h-[65dvh]
+    bg-white border border-black text-black
+    p-4 sm:p-6
+    rounded-lg shadow-xl z-50
+    overflow-y-auto
+    font-custom
+  "
+>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold">CART</h2>
         <button onClick={onClose} className="text-gray-600 hover:text-red-500 text-lg">
