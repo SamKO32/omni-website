@@ -33,20 +33,20 @@ export default function FAQPage() {
       {/* Fixed, scrollable content container */}
       <div
         style={{
-          position: 'absolute',
-          top: '17.5%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '55%',
-          maxWidth: '900px',
-          height: '65vh',
-          overflow: 'hidden',
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)", // ✅ centers vertically + horizontally
+          width: "55%",
+          maxWidth: "900px",
+          height: "50%",
+          overflow: "hidden",
           zIndex: 2,
-          backgroundColor: 'white',
-          opacity: '80%',
-          borderRadius: '2%',
-          display: 'flex',
-          flexDirection: 'column',
+          backgroundColor: "white",
+          opacity: "80%",
+          borderRadius: "2%",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {/* Inner scrollable content */}
@@ -64,7 +64,7 @@ export default function FAQPage() {
             <h2 className='font-custom' style={{ color: 'black', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
               FAQ
             </h2>
-
+{/* 
             <div style={{ marginBottom: '2rem', color: '#ddd', lineHeight: '1.6' }}>
               <h3 className='font-custom' style={{  color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
                 How long does shipping take?
@@ -81,13 +81,13 @@ export default function FAQPage() {
               <p className='text-black font-custom'>
                 Returns are accepted within 14 days of delivery for unworn items. Contact us for details.
               </p>
-            </div>
+            </div> */}
 
             <div style={{ marginBottom: '2rem', color: '#ddd', lineHeight: '1.6' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' , textAlign: 'center'}}>
                 Where can I find OMNI?
               </h3>
-              <p className='text-black font-custom'>
+              <p className='text-black font-custom' style={{textAlign: 'center'}}>
                 Join our{' '}
                 <a
                   href="https://discord.gg/aVAwQEaU"
@@ -111,7 +111,7 @@ export default function FAQPage() {
           </div>
 
           {/* Privacy Policy Section */}
-          <div style={{ width: '100%', color: '#ddd', lineHeight: '1.6' }}>
+          {/* <div style={{ width: '100%', color: '#ddd', lineHeight: '1.6' }}>
             <h2 className='font-custom' style={{ color: 'black', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
               Privacy Policy
             </h2>
@@ -179,7 +179,7 @@ export default function FAQPage() {
             <p className='font-custom' style={{ fontSize: '0.75rem', color: '#999', textAlign: 'center', marginTop: '1rem' }}>
               Last updated: June 2025
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
 

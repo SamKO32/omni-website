@@ -27,12 +27,6 @@ export default function ProductPage() {
   if (!product) {
     return (
       <>
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
-          <video autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-            <source src="/videos/tron.mp4" type="video/mp4" />
-          </video>
-        </div>
-
         <div style={{
           position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
           width: '90%', maxWidth: '600px', maxHeight: '80vh',
@@ -63,13 +57,6 @@ export default function ProductPage() {
 
   return (
     <>
-      {/* Background Video */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
-        <video autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-          <source src="/videos/placeholder.mp4" type="video/mp4" />
-        </video>
-      </div>
-
       {/* Main Content */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
@@ -80,13 +67,12 @@ export default function ProductPage() {
       }}
         className='hide-scrollbar'
       >
-        <h1 className="font-custom text-white text-2xl font-bold text-center mb-4">{product.name}</h1>
-        <p className="font-custom text-gray-300 text-center mb-4">{product.price}</p>
-
+        <h1 className="font-custom text-white text-2xl font-bold text-center mt-10">{product.name}</h1>
+        <p className="font-custom text-gray-300 text-center">{product.price}</p>
         <img
           src={selectedImage || product.image}
           alt={product.name}
-          className="w-full h-full object-cover rounded mb-4"
+          className="w-full h-full object-cover rounded"
         />
 
         <div className="flex justify-center gap-2 mb-4">
