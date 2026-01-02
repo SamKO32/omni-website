@@ -20,7 +20,7 @@ function App() {
     <StoreProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<GatePage onUnlock={() => setUnlocked(true)} />} />
+          <Route path="/" element={<GatePage />} />
           <Route path="/home" element={<HomePage />} />
           {unlocked ? (
             <>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import TVFrame from "../components/ui/TVFrame";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -142,6 +143,10 @@ export default function HomePage() {
           "
         />
       </div>
+    
+          {/* TV Frame Overlay */}
+          <TVFrame><></></TVFrame>
     </div>
+    
   );
 }

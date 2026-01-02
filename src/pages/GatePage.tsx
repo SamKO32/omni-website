@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import TVFrame from "../components/ui/TVFrame";
 
 export default function GatePage() {
   const navigate = useNavigate();
@@ -35,6 +36,9 @@ export default function GatePage() {
           "
         />
       </div>
+
+        {/* TV Frame Overlay */}
+        <TVFrame><></></TVFrame>
     </div>
   );
 }
