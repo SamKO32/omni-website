@@ -72,7 +72,7 @@ export default function ProductPage() {
         <img
           src={selectedImage || product.image}
           alt={product.name}
-          className="w-full h-full object-cover rounded"
+          className="w-full h-full object-cover rounded mt-4 mb-4"
         />
 
         <div className="flex justify-center gap-2 mb-4">
