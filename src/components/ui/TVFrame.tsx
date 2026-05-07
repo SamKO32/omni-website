@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TVFrame({ children }: { children: React.ReactNode }) {
+export default function TVFrame() {
   return (
     <div style={{
       position: 'fixed',
@@ -14,8 +14,6 @@ export default function TVFrame({ children }: { children: React.ReactNode }) {
       backgroundSize: '100% 100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
-    }}>
-      {children}
-    </div>
+    }} />
   );
 }

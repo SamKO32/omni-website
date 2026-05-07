@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import TVFrame from "../components/ui/TVFrame";
+import VideoBackground from "../components/ui/VideoBackground";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -12,17 +12,7 @@ export default function HomePage() {
   return (
     <div className="relative w-screen h-[100dvh] overflow-hidden bg-black">
       <div className="relative h-full w-full text-white">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full"
-          style={{ objectFit: "fill" }}
-        >
-          <source src="/videos/HOMEPAGEBG.mov" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <VideoBackground src="/videos/HOMEPAGEBG.mp4" poster="/images/posters/HOMEPAGEBG_poster.jpg" />
 
         {/* Back to start */}
         <div
@@ -144,9 +134,6 @@ export default function HomePage() {
         />
       </div>
     
-          {/* TV Frame Overlay */}
-          <TVFrame><></></TVFrame>
     </div>
-    
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import TVFrame from '../components/ui/TVFrame';
+import VideoBackground from '../components/ui/VideoBackground';
 import { FaInstagram, FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
 
 export default function ListenPage() {
@@ -7,9 +7,7 @@ export default function ListenPage() {
     <>
       {/* Background Video */}
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100dvh', zIndex: 0, overflow: 'hidden' }}>
-        <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-          <source src="/videos/LISTENPAGEBG.mov" type="video/mp4" />
-        </video>
+        <VideoBackground src="/videos/LISTENPAGEBG.mp4" poster="/images/posters/LISTENPAGEBG_poster.jpg" />
       </div>
 
       {/* Background Visualizer */}
@@ -75,8 +73,6 @@ export default function ListenPage() {
         </div>
       </div>
 
-      {/* TV Overlay */}
-      <TVFrame><></></TVFrame>
     </>
   );
 }

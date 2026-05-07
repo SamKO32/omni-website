@@ -1,5 +1,5 @@
 import React from 'react';
-import TVFrame from '../components/ui/TVFrame';
+import VideoBackground from '../components/ui/VideoBackground';
 
 export default function FAQPage() {
   return (
@@ -14,20 +14,7 @@ export default function FAQPage() {
         zIndex: 0,
         overflow: 'hidden',
       }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        >
-          <source src="/videos/bgspace.mov" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <VideoBackground src="/videos/bgspace.mp4" poster="/images/posters/bgspace_poster.jpg" />
       </div>
 
       {/* Fixed, scrollable content container */}
@@ -183,8 +170,6 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* TV frame overlay */}
-      <TVFrame><></></TVFrame>
     </>
   );
 }

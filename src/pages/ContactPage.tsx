@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TVFrame from "../components/ui/TVFrame";
+import VideoBackground from "../components/ui/VideoBackground";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -31,9 +31,7 @@ export default function ContactPage() {
     <div className="relative w-screen h-[100dvh] overflow-hidden bg-black">
       {/* Background video */}
       <div className="fixed inset-0 z-0 overflow-hidden">
-        <video autoPlay loop muted playsInline className="h-full w-full object-cover">
-          <source src="/videos/bgspace.mov" type="video/mp4" />
-        </video>
+        <VideoBackground src="/videos/bgspace.mp4" poster="/images/posters/bgspace_poster.jpg" />
       </div>
 
       {/* Content wrapper */}
@@ -178,10 +176,6 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* TV frame overlay */}
-      <TVFrame>
-        <></>
-      </TVFrame>
     </div>
   );
 }

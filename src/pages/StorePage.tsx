@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { products } from '../data/products';
 import { Link } from 'react-router-dom';
-import TVFrame from '../components/ui/TVFrame';
 import CartPopup from '../components/ui/CartPopup';
 
 export default function StorePage() {
@@ -16,30 +15,6 @@ export default function StorePage() {
 
   return (
     <>
-      {/* Full-screen background video */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        zIndex: 0,
-        overflow: 'hidden',
-      }}>
-        <video
-          autoPlay
-          loop
-          muted
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        >
-          <source src="/videos/filler.mov" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
 
       {/* 🛒 Cart Button */}
      <button
@@ -91,6 +66,8 @@ export default function StorePage() {
                     src={hoveredProductId === product.id && product.hoverImage ? product.hoverImage : product.image}
                     alt={product.name}
                     className="w-full max-w-[400px] mx-auto aspect-square object-cover mb-2 transition-transform hover:scale-105"
+                    loading="eager"
+                    fetchPriority="high"
                     onMouseEnter={() => setHoveredProductId(product.id)}
                     onMouseLeave={() => setHoveredProductId(null)}
                   />
@@ -120,8 +97,6 @@ export default function StorePage() {
         </>
       )}
 
-      {/* TV Frame */}
-      <TVFrame><></></TVFrame>
     </>
   );
 }

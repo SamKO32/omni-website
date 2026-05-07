@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import { products } from '../data/products';
-import TVFrame from '../components/ui/TVFrame';
 import CartPopup from '../components/ui/CartPopup';
 
 export default function ProductPage() {
@@ -39,7 +38,6 @@ export default function ProductPage() {
           </h1>
         </div>
 
-        <TVFrame><></></TVFrame>
       </>
     );
   }
@@ -194,8 +192,6 @@ export default function ProductPage() {
         </>
       )}
 
-      {/* TV Frame Overlay */}
-      <TVFrame><></></TVFrame>
     </>
   );
 }

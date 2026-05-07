@@ -1,44 +1,33 @@
 import js from "@eslint/js";
-import tseslint from "typescript-eslint";
-import react from "eslint-plugin-react";
+import tsParser from "@typescript-eslint/parser";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
-export default tseslint.config(
+export default [
   {
-    ignores: ["dist", "node_modules"],
+    ignores: ["dist/**", "node_modules/**", "public/**"],
   },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
   {
+    ...js.configs.recommended,
     files: ["**/*.{ts,tsx}"],
-    plugins: {
-      react,
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
     languageOptions: {
+      parser: tsParser,
       ecmaVersion: "latest",
       sourceType: "module",
       parserOptions: {
         ecmaFeatures: { jsx: true },
       },
     },
+    plugins: {
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+    },
     rules: {
-      // React 17+ JSX transform
-      "react/react-in-jsx-scope": "off",
-      "@typescript-eslint/no-explicit-any": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "no-unused-vars": "off",
+      "no-undef": "off",
     },
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-  }
-);
+  },
+];

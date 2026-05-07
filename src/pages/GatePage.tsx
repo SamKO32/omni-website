@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import TVFrame from "../components/ui/TVFrame";
+import VideoBackground from "../components/ui/VideoBackground";
 
 export default function GatePage() {
   const navigate = useNavigate();
@@ -12,16 +12,7 @@ export default function GatePage() {
   return (
     <div className="relative w-screen h-[100dvh] overflow-hidden bg-black">
       <div className="relative h-full w-full text-white">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full pointer-events-none"
-          style={{ objectFit: "fill" }}
-        >
-          <source src="/videos/GATEPAGEBG.mov" type="video/mp4" />
-        </video>
+        <VideoBackground src="/videos/GATEPAGEBG.mp4" poster="/images/posters/GATEPAGEBG_poster.jpg" />
 
         {/* Click area */}
         <button
@@ -37,8 +28,6 @@ export default function GatePage() {
         />
       </div>
 
-        {/* TV Frame Overlay */}
-        <TVFrame><></></TVFrame>
     </div>
   );
 }
