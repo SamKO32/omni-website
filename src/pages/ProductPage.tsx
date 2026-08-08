@@ -4,6 +4,9 @@ import { useStore } from '../context/StoreContext';
 import { products } from '../data/products';
 import CartPopup from '../components/ui/CartPopup';
 
+type InfoTab = 'details' | 'fit' | 'shipping';
+const TABS: InfoTab[] = ['details', 'fit', 'shipping'];
+
 export default function ProductPage() {
   const { id } = useParams();
   const product = products.find(p => p.id === parseInt(id ?? '0'));
@@ -12,9 +15,7 @@ export default function ProductPage() {
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [infoTab, setInfoTab] = useState<'details' | 'fit' | 'shipping'>('details');
-  type InfoTab = "details" | "fit" | "shipping";
-  const TABS: InfoTab[] = ["details", "fit", "shipping"];
+  const [infoTab, setInfoTab] = useState<InfoTab>('details');
 
   useEffect(() => {
     document.body.style.overflow = showCart ? 'hidden' : '';
@@ -86,7 +87,7 @@ export default function ProductPage() {
         </div>
 
         <div className="flex justify-center gap-2 mb-4">
-          {product.sizes.map(size => (
+          {(product.sizes ?? []).map(size => (
             <button
               key={size}
               className="w-10 h-10 rounded-full border font-custom flex items-center justify-center"

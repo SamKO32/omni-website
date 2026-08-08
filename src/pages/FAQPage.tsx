@@ -1,175 +1,53 @@
-import React from 'react';
-import VideoBackground from '../components/ui/VideoBackground';
+import { FaDiscord, FaInstagram } from 'react-icons/fa';
 
 export default function FAQPage() {
   return (
-    <>
-      {/* Full-screen background video */}
-      <div style={{
+    <div
+      style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100dvw',
-        height: '100dvh',
-        zIndex: 0,
-        overflow: 'hidden',
-      }}>
-        <VideoBackground src="/videos/bgspace.mp4" poster="/images/posters/bgspace_poster.jpg" />
-      </div>
+        inset: 0,
+        zIndex: 2,
+        background: 'rgba(0, 0, 0, 0.55)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+      }}
+      className="text-white flex flex-col items-center justify-center gap-6 p-8"
+    >
+      <h2 className="font-custom font-bold text-2xl sm:text-3xl text-center tracking-widest">
+        FAQ
+      </h2>
 
-      {/* Fixed, scrollable content container */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)", // ✅ centers vertically + horizontally
-          width: "55%",
-          maxWidth: "900px",
-          height: "50%",
-          overflow: "hidden",
-          zIndex: 2,
-          backgroundColor: "white",
-          opacity: "80%",
-          borderRadius: "2%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* Inner scrollable content */}
-        <div
-          style={{
-            overflowY: 'auto',
-            padding: '3rem 2rem',
-            flex: 1,
-            paddingTop: 0,
-          }}
-          className="hide-scrollbar"
-        >
-          {/* FAQ Section */}
-          <div style={{ width: '100%', marginTop: '2rem' }}>
-            <h2 className='font-custom' style={{ color: 'black', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
-              FAQ
-            </h2>
-{/* 
-            <div style={{ marginBottom: '2rem', color: '#ddd', lineHeight: '1.6' }}>
-              <h3 className='font-custom' style={{  color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                How long does shipping take?
-              </h3>
-              <p className='text-black font-custom'>
-                Orders typically ship within 5 to 7 business days. You will receive tracking info once shipped.
-              </p>
-            </div>
+      <div className="w-full max-w-sm border-t border-white/20 pt-5 flex flex-col gap-4">
+        <div className="text-center">
+          <h3 className="font-custom font-semibold text-sm sm:text-base mb-1">
+            Where can I find OMNI?
+          </h3>
+        </div>
 
-            <div style={{ marginBottom: '2rem', color: '#ddd', lineHeight: '1.6' }}>
-              <h3 className='font-custom' style={{  color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                What’s your return policy?
-              </h3>
-              <p className='text-black font-custom'>
-                Returns are accepted within 14 days of delivery for unworn items. Contact us for details.
-              </p>
-            </div> */}
+        <div className="flex justify-center gap-6 pt-2">
+          <a
+            href="https://discord.gg/aVAwQEaU"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Join our Discord"
+            className="flex flex-col items-center gap-1.5 text-white/70 hover:text-white transition-colors group"
+          >
+            <FaDiscord className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform" />
+            <span className="font-custom text-xs tracking-wider">DISCORD</span>
+          </a>
 
-            <div style={{ marginBottom: '2rem', color: '#ddd', lineHeight: '1.6' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' , textAlign: 'center'}}>
-                Where can I find OMNI?
-              </h3>
-              <p className='text-black font-custom' style={{textAlign: 'center'}}>
-                Join our{' '}
-                <a
-                  href="https://discord.gg/aVAwQEaU"
-                  style={{ color: '#3b82f6', textDecoration: 'underline' }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Discord
-                </a>{' '}
-                and follow us on{' '}
-                <a
-                  href="https://www.instagram.com/ontomynextidea"
-                  style={{ color: '#3b82f6', textDecoration: 'underline' }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Instagram
-                </a>.
-              </p>
-            </div>
-          </div>
-
-          {/* Privacy Policy Section */}
-          {/* <div style={{ width: '100%', color: '#ddd', lineHeight: '1.6' }}>
-            <h2 className='font-custom' style={{ color: 'black', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
-              Privacy Policy
-            </h2>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h3 className='font-custom' style={{color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                1. Information We Collect
-              </h3>
-              <p className='text-black font-custom'>
-                We collect basic data such as email addresses or contact info only when you provide it to us directly, for example, via contact forms or sign-ups.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                2. How We Use Your Data
-              </h3>
-              <p className='text-black font-custom'>
-                We use your information solely to communicate updates, respond to inquiries, and improve your experience with our brand. We do not sell or share your data with third parties.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                3. Cookies
-              </h3>
-              <p className='text-black font-custom'>
-                Our website may use cookies for basic functionality and anonymous analytics. You can disable cookies in your browser settings if you prefer.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                4. Data Security
-              </h3>
-              <p className='text-black font-custom'>
-                We take reasonable measures to protect your data, but please understand that no method of transmission over the internet is 100% secure.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                5. Your Rights
-              </h3>
-              <p className='text-black font-custom'>
-                You have the right to access, update, or request deletion of your personal data by contacting us directly.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h3 className='font-custom' style={{ color: 'black', fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                6. Contact
-              </h3>
-              <p className='text-black font-custom'>
-                For any questions or concerns about this privacy policy, please reach out to us at{' '}
-                <a
-                  href="mailto:ontomynextidea@gmail.com"
-                  style={{ color: '#3b82f6', textDecoration: 'underline' }}
-                >
-                  ontomynextidea@gmail.com
-                </a>.
-              </p>
-            </div>
-
-            <p className='font-custom' style={{ fontSize: '0.75rem', color: '#999', textAlign: 'center', marginTop: '1rem' }}>
-              Last updated: June 2025
-            </p>
-          </div> */}
+          <a
+            href="https://www.instagram.com/ontomynextidea"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow us on Instagram"
+            className="flex flex-col items-center gap-1.5 text-white/70 hover:text-white transition-colors group"
+          >
+            <FaInstagram className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform" />
+            <span className="font-custom text-xs tracking-wider">INSTAGRAM</span>
+          </a>
         </div>
       </div>
-
-    </>
+    </div>
   );
 }

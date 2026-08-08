@@ -1,16 +1,10 @@
 import React from 'react';
-import VideoBackground from '../components/ui/VideoBackground';
-import { FaInstagram, FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
+import { FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
 
 export default function ListenPage() {
   return (
     <>
-      {/* Background Video */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100dvh', zIndex: 0, overflow: 'hidden' }}>
-        <VideoBackground src="/videos/LISTENPAGEBG.mp4" poster="/images/posters/LISTENPAGEBG_poster.jpg" />
-      </div>
-
-      {/* Background Visualizer */}
+      {/* Background visualizer bars */}
       <div className="fixed inset-0 -z-10 flex items-end justify-center opacity-20 pointer-events-none">
         <div className="flex gap-[1px] h-40 items-end animate-pulse">
           {Array.from({ length: 40 }).map((_, i) => (
@@ -26,18 +20,16 @@ export default function ListenPage() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main content */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
         width: '90%', maxWidth: '600px', maxHeight: '80vh',
         padding: '2rem', overflowY: 'auto', zIndex: 2,
         display: 'flex', flexDirection: 'column', alignItems: 'center',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
       }}
         className="hide-scrollbar text-white font-custom space-y-8 text-center"
       >
-
-        {/* Vol 1 Spotify Embed */}
         <iframe
           src="https://open.spotify.com/embed/album/3dQ3KA2C3L185Olu1Ls11D?utm_source=generator"
           width="100%"
@@ -46,33 +38,23 @@ export default function ListenPage() {
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
           className="rounded-xl shadow-lg"
-        ></iframe>
+        />
 
-        {/* Music Platforms */}
         <div className="flex flex-wrap justify-center gap-3">
           <a href="https://open.spotify.com/album/3dQ3KA2C3L185Olu1Ls11D?si=1QDguFI9QUK9FnjUyvOr_g" target="_blank" rel="noreferrer"
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-full text-sm">
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-full text-sm transition-colors">
             <FaSpotify /> Spotify
           </a>
           <a href="https://music.apple.com/us/artist/omni/1755264397" target="_blank" rel="noreferrer"
-            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-full text-sm">
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-full text-sm transition-colors">
             <FaApple /> Apple Music
           </a>
           <a href="https://soundcloud.com/omniradio/radio4" target="_blank" rel="noreferrer"
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-full text-sm">
+            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-full text-sm transition-colors">
             <FaSoundcloud /> SoundCloud
           </a>
         </div>
-
-        {/* Socials */}
-        <div className="flex gap-6 mt-4 justify-center text-2xl">
-          <a href="https://instagram.com/ontomynextidea" target="_blank" rel="noreferrer"
-            className="text-pink-500 hover:text-pink-600">
-            <FaInstagram />
-          </a>
-        </div>
       </div>
-
     </>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import VideoBackground from "../components/ui/VideoBackground";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -10,31 +9,14 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative w-screen h-[100dvh] overflow-hidden bg-black">
+    <div className="relative w-screen h-[100svh] overflow-hidden">
       <div className="relative h-full w-full text-white">
-        <VideoBackground src="/videos/HOMEPAGEBG.mp4" poster="/images/posters/HOMEPAGEBG_poster.jpg" />
-
-        {/* Back to start */}
-        <div
-          onClick={() => handleSubmit("/")}
-          className="absolute"
-          style={{
-            top: "4vh",
-            left: "50vw",
-            width: "9.5vw",
-            height: "7vh",
-            borderRadius: "70px",
-            transform: "translate(-50%, -50%)",
-            cursor: "pointer",
-          }}
-        />
-
         {/* Store clickable areas */}
         {/* Icon */}
         <button
           type="button"
           onClick={() => handleSubmit("/store")}
-          aria-label="Enter"
+          aria-label="Go to Store"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -46,7 +28,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/store")}
-          aria-label="Enter"
+          aria-label="Store"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -60,7 +42,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/listen")}
-          aria-label="Enter"
+          aria-label="Go to Listen"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -72,7 +54,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/listen")}
-          aria-label="Enter"
+          aria-label="Listen"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -86,7 +68,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/faq")}
-          aria-label="Enter"
+          aria-label="Go to FAQ"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -98,7 +80,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/faq")}
-          aria-label="Enter"
+          aria-label="FAQ"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -112,7 +94,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/contact")}
-          aria-label="Enter"
+          aria-label="Go to Contact"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -124,7 +106,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => handleSubmit("/contact")}
-          aria-label="Enter"
+          aria-label="Contact"
           className="
             absolute -translate-x-1/2 -translate-y-1/2
             cursor-pointer
@@ -133,7 +115,6 @@ export default function HomePage() {
           "
         />
       </div>
-    
     </div>
   );
 }

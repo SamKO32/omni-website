@@ -1,12 +1,14 @@
 // lib/shopify.ts
 
+const API_VERSION = "2024-01";
+
 export async function createShopifyCheckout(items: any[]) {
   const domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
   const token = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN;
 
   // Create cart
   const cartResponse = await fetch(
-    `https://${domain}/api/2024-01/graphql.json`,
+    `https://${domain}/api/${API_VERSION}/graphql.json`,
     {
       method: "POST",
       headers: {
@@ -33,11 +35,18 @@ export async function createShopifyCheckout(items: any[]) {
   );
 
   const cartData = await cartResponse.json();
-  const cartId = cartData?.data?.cartCreate?.cart?.id;
+  const cartCreate = cartData?.data?.cartCreate;
+  const cartId = cartCreate?.cart?.id;
+
+  const userErrors = cartCreate?.userErrors;
+  if (userErrors?.length) {
+    console.error("Shopify cartCreate userErrors:", userErrors);
+    throw new Error(userErrors[0]?.message ?? "Failed to create cart");
+  }
 
   if (!cartId) {
     console.error("Error creating cart:", cartData);
-    return cartData;
+    throw new Error("Cart creation failed — no cart ID returned");
   }
 
   // Convert your line items → Shopify format
@@ -48,7 +57,7 @@ export async function createShopifyCheckout(items: any[]) {
 
   // Add items
   const addLinesResponse = await fetch(
-    `https://${domain}/api/2024-01/graphql.json`,
+    `https://${domain}/api/${API_VERSION}/graphql.json`,
     {
       method: "POST",
       headers: {

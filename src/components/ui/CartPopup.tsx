@@ -1,14 +1,13 @@
 // components/ui/CartPopup.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useStore } from '../../context/StoreContext';
 import { createShopifyCheckout } from '../../../lib/shopify';
 
 export default function CartPopup({ onClose }: { onClose: () => void }) {
-  const { cart, removeFromCart, addToCart } = useStore();
-  const [groupedItems, setGroupedItems] = useState<any[]>([]);
-  const { clearCart } = useStore();
+  const { cart, removeFromCart, addToCart, clearCart } = useStore();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-  useEffect(() => {
+  const groupedItems = useMemo(() => {
     const grouped = cart.reduce((acc, item) => {
       const key = `${item.id}-${item.size ?? 'NOSIZE'}`;
       if (!acc[key]) {
@@ -18,19 +17,20 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
       }
       return acc;
     }, {} as Record<string, any>);
-
-    setGroupedItems(Object.values(grouped));
+    return Object.values(grouped) as any[];
   }, [cart]);
 
-  const calculateSubtotal = () => {
-    return groupedItems
-      .reduce(
-        (total, item) =>
-          total + item.quantity * parseFloat(item.price.replace('$', '')),
-        0
-      )
-      .toFixed(2);
-  };
+  const subtotal = useMemo(
+    () =>
+      groupedItems
+        .reduce(
+          (total, item) =>
+            total + item.quantity * parseFloat(item.price.replace('$', '')),
+          0
+        )
+        .toFixed(2),
+    [groupedItems]
+  );
 
   const handleQuantityChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -64,15 +64,15 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     }
   };
 
-    const handleCheckout = async () => {
+  const handleCheckout = async () => {
+    if (isCheckingOut) return;
+    setIsCheckingOut(true);
     try {
-      
       const data = await createShopifyCheckout(groupedItems);
 
       const url =
         data?.data?.cartLinesAdd?.cart?.checkoutUrl ??
         data?.data?.cartCreate?.cart?.checkoutUrl;
-
 
       if (!url) {
         console.error("Checkout URL missing:", data);
@@ -80,12 +80,15 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
         return;
       }
 
-      // Redirect users to Shopify
-      clearCart();
+      // Redirect first — if navigation succeeds the page unloads and cart cleanup is moot.
+      // Clearing before redirect risks losing the cart if the browser blocks navigation.
       window.location.href = url;
+      clearCart();
     } catch (error) {
       console.error("Error during checkout:", error);
       alert("We couldn’t connect to Shopify. Please try again.");
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -151,17 +154,18 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
 
       {groupedItems.length > 0 && (
         <div className="mt-6">
-          <p className="font-semibold text-right">Subtotal: ${calculateSubtotal()}</p>
+          <p className="font-semibold text-right">Subtotal: ${subtotal}</p>
 
           <button
             onClick={handleCheckout}
-            className="mt-4 w-full font-custom px-4 py-2 rounded-full shadow-lg border border-black hover:scale-105 transition-transform duration-200"
+            disabled={isCheckingOut}
+            className="mt-4 w-full font-custom px-4 py-2 rounded-full shadow-lg border border-black transition-transform duration-200 disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:scale-105"
             style={{
               backgroundColor: 'white',
               color: 'black',
             }}
           >
-            CHECKOUT
+            {isCheckingOut ? 'REDIRECTING...' : 'CHECKOUT'}
           </button>
         </div>
       )}

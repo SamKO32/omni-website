@@ -10,30 +10,32 @@ export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    setIsLoaded(false);
     const video = videoRef.current;
     if (!video) return;
 
     const handleCanPlay = () => setIsLoaded(true);
     video.addEventListener('canplay', handleCanPlay);
-
-    // Already ready from cache — won't fire canplay again
-    if (video.readyState >= 3) setIsLoaded(true);
+    video.load();
 
     return () => video.removeEventListener('canplay', handleCanPlay);
-  }, []);
+  }, [src]);
 
   return (
     <div className="relative w-full h-full">
-      {!isLoaded && (
-        <div
-          className="absolute inset-0 bg-black z-10"
-          style={
-            poster
-              ? { backgroundImage: `url(${poster})`, backgroundSize: 'cover', backgroundPosition: 'center' }
-              : undefined
-          }
-        />
-      )}
+      {/* Poster overlay — fades out once video is ready, never unmounts to avoid flash */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          backgroundImage: poster ? `url(${poster})` : undefined,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundColor: !poster ? 'black' : undefined,
+          opacity: isLoaded ? 0 : 1,
+          transition: 'opacity 0.5s ease',
+          pointerEvents: 'none',
+        }}
+      />
       <video
         ref={videoRef}
         autoPlay
@@ -41,13 +43,10 @@ export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
         muted
         playsInline
         preload="auto"
-        poster={poster}
+        src={src}
         className="absolute inset-0 h-full w-full"
-        style={{ objectFit: 'fill' }}
-      >
-        {/* No type= attribute — let the browser detect format from Content-Type */}
-        <source src={src} />
-      </video>
+        style={{ objectFit: 'cover' }}
+      />
     </div>
   );
 }

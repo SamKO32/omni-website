@@ -113,16 +113,16 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const removeFromCart = (match: CartItem) => {
-    setCart((prev) =>
-      prev.filter(
+    setCart((prev) => {
+      const idx = prev.findIndex(
         (item) =>
-          !(
-            item.id === match.id &&
-            item.size === match.size &&
-            item.variantId === match.variantId
-          )
-      )
-    );
+          item.id === match.id &&
+          item.size === match.size &&
+          item.variantId === match.variantId
+      );
+      if (idx === -1) return prev;
+      return [...prev.slice(0, idx), ...prev.slice(idx + 1)];
+    });
   };
 
   const clearCart = () => {

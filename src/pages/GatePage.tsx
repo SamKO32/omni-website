@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import VideoBackground from "../components/ui/VideoBackground";
 
 export default function GatePage() {
   const navigate = useNavigate();
@@ -10,10 +9,8 @@ export default function GatePage() {
   };
 
   return (
-    <div className="relative w-screen h-[100dvh] overflow-hidden bg-black">
+    <div className="relative w-screen h-[100svh] overflow-hidden">
       <div className="relative h-full w-full text-white">
-        <VideoBackground src="/videos/GATEPAGEBG.mp4" poster="/images/posters/GATEPAGEBG_poster.jpg" />
-
         {/* Click area */}
         <button
           type="button"
@@ -27,7 +24,6 @@ export default function GatePage() {
           "
         />
       </div>
-
     </div>
   );
 }
