@@ -14,6 +14,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const ListenPage = lazy(() => import('./pages/ListenPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 type RouteVideo = { src: string; poster: string };
 
@@ -78,8 +79,8 @@ function AppInner() {
           position: 'fixed',
           top: '4vh',
           left: '50vw',
-          width: '9.5vw',
-          height: '7vh',
+          width: 'max(9.5vw, 44px)',
+          height: 'max(7vh, 44px)',
           borderRadius: '70px',
           transform: 'translate(-50%, -50%)',
           cursor: 'pointer',
@@ -98,6 +99,7 @@ function AppInner() {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>

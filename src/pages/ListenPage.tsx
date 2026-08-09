@@ -33,7 +33,7 @@ export default function ListenPage() {
         <iframe
           src="https://open.spotify.com/embed/album/3dQ3KA2C3L185Olu1Ls11D?utm_source=generator"
           width="100%"
-          height="380"
+          style={{ height: 'clamp(160px, 45dvh, 380px)' }}
           frameBorder="0"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"

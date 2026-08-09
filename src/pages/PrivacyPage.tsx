@@ -2,7 +2,10 @@ import React from 'react';
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center">
+    <div
+      className="min-h-screen bg-black text-white p-4 sm:p-8 flex flex-col items-center"
+      style={{ position: 'relative', zIndex: 2 }}
+    >
       <div className="max-w-3xl w-full space-y-6">
         <h1 className="text-3xl font-bold mb-4 text-center">Privacy Policy</h1>
 

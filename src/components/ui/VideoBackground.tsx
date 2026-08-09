@@ -25,11 +25,9 @@ export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
     <div className="relative w-full h-full">
       {/* Poster overlay — fades out once video is ready, never unmounts to avoid flash */}
       <div
-        className="absolute inset-0 z-10"
+        className="absolute inset-0 z-10 bg-center bg-[length:100%_100%] sm:bg-cover"
         style={{
           backgroundImage: poster ? `url(${poster})` : undefined,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
           backgroundColor: !poster ? 'black' : undefined,
           opacity: isLoaded ? 0 : 1,
           transition: 'opacity 0.5s ease',
@@ -44,8 +42,7 @@ export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
         playsInline
         preload="auto"
         src={src}
-        className="absolute inset-0 h-full w-full"
-        style={{ objectFit: 'cover' }}
+        className="absolute inset-0 h-full w-full object-fill sm:object-cover"
       />
     </div>
   );

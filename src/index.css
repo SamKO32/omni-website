@@ -11,6 +11,12 @@ body {
   background-color: black;
 }
 
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .scrollbar-black-track::-webkit-scrollbar {
   width: 6px;
 }

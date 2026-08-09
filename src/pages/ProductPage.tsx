@@ -39,16 +39,126 @@ export default function ProductPage() {
     switch (infoTab) {
       case 'details':  return product.description;
       case 'fit':      return `True to size.\nModel is 5'7, wearing Large.`;
-      case 'shipping': return `Ships within 1 week.\nPre-orders allow 6–8 weeks for production.\nInternational orders may be subject to customs fees.`;
+      case 'shipping': return `Ships within 1 week.\nPre-orders allow 6 to 8 weeks for production.\nInternational orders may be subject to customs fees.`;
       default:         return '';
     }
   };
 
+  const handleAddToCart = () => {
+    const selectedVariant = product.variants?.find(v => v.size === selectedSize);
+    if (!selectedVariant) return;
+    addToCart({ ...product, size: selectedSize!, variantId: selectedVariant.variantId });
+    setShowCart(true);
+  };
+
+  const sizeSelector = (sizeClass: string) => (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
+      {(product.sizes ?? []).map(size => (
+        <button
+          key={size}
+          onClick={() => setSelectedSize(size)}
+          className={`font-custom ${sizeClass}`}
+          style={{
+            borderRadius: '50%',
+            border: '1px solid white',
+            background: selectedSize === size ? 'white' : 'transparent',
+            color: selectedSize === size ? 'black' : 'white',
+            cursor: 'pointer',
+          }}
+        >
+          {size}
+        </button>
+      ))}
+    </div>
+  );
+
+  const infoTabs = (textClass: string) => (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', marginBottom: '0.625rem' }}>
+        {TABS.map(tab => (
+          <button
+            key={tab}
+            onClick={() => setInfoTab(tab)}
+            className="font-custom bg-transparent border-none cursor-pointer"
+            style={{
+              color: 'white',
+              fontSize: '0.75rem',
+              textDecoration: infoTab === tab ? 'underline' : 'none',
+            }}
+          >
+            {tab.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <pre className={`text-gray-300 font-custom whitespace-pre-wrap text-center leading-relaxed ${textClass}`}>
+        {renderInfoText()}
+      </pre>
+    </div>
+  );
+
   return (
     <>
-      {/* Two-column layout */}
+      {/* ============ MOBILE — single column, scroll confined to the screen area, docked CTA ============ */}
+      <div className="sm:hidden fixed top-0 left-0 w-full h-[91svh] flex flex-col" style={{ zIndex: 2 }}>
+        <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar">
+          <div className="flex flex-col px-4 pt-[18dvh] pb-6">
+            <img
+              src={selectedImage || product.image}
+              alt={product.name}
+              className="w-full max-w-[70vw] mx-auto aspect-square object-cover rounded-lg"
+            />
+
+            <div className="flex gap-2 justify-center mt-3 overflow-x-auto hide-scrollbar">
+              {images.map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt={`Thumb ${i}`}
+                  onClick={() => setSelectedImage(img)}
+                  className="w-12 h-12 flex-shrink-0 object-cover rounded cursor-pointer"
+                  style={{ border: `1px solid ${selectedImage === img ? 'white' : '#4b5563'}` }}
+                />
+              ))}
+            </div>
+
+            <h1 className="font-custom text-white text-xl font-bold text-center mt-4">{product.name}</h1>
+            <p className="font-custom text-gray-300 text-center mt-1">{product.price}</p>
+
+            <div className="mt-4">
+              {sizeSelector('w-12 h-12 text-sm')}
+            </div>
+
+            <div className="mt-5 border-t border-gray-600 pt-4">
+              {infoTabs('text-sm')}
+            </div>
+          </div>
+        </div>
+
+        {/* Add to Cart — docked to the bottom of this pane, not independently positioned */}
+        <div
+          className="flex-none px-4 pt-3 bg-black/95 border-t border-white/15"
+          style={{ paddingBottom: 'max(0.9rem, env(safe-area-inset-bottom))' }}
+        >
+          <button
+            disabled={!selectedSize}
+            onClick={handleAddToCart}
+            className="font-custom font-bold w-full rounded-md"
+            style={{
+              padding: '0.85rem',
+              background: selectedSize ? 'white' : '#444',
+              color: selectedSize ? 'black' : '#888',
+              cursor: selectedSize ? 'pointer' : 'not-allowed',
+              fontSize: '1rem',
+            }}
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      {/* ============ DESKTOP — two-pane card, unchanged ============ */}
       <div
-        className="hide-scrollbar"
+        className="hidden sm:flex hide-scrollbar"
         style={{
           position: 'absolute',
           top: '50%', left: '50%',
@@ -57,7 +167,6 @@ export default function ProductPage() {
           maxWidth: '860px',
           maxHeight: '80vh',
           zIndex: 2,
-          display: 'flex',
           flexDirection: 'row',
           gap: '1.5rem',
           overflow: 'hidden',
@@ -112,37 +221,12 @@ export default function ProductPage() {
             <p className="font-custom text-gray-300 text-center text-sm">{product.price}</p>
           </div>
 
-          {/* Size selector */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-            {(product.sizes ?? []).map(size => (
-              <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className="font-custom"
-                style={{
-                  width: '2.5rem', height: '2.5rem',
-                  borderRadius: '50%',
-                  border: '1px solid white',
-                  background: selectedSize === size ? 'white' : 'transparent',
-                  color: selectedSize === size ? 'black' : 'white',
-                  cursor: 'pointer',
-                  fontSize: '0.75rem',
-                }}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+          {sizeSelector('w-10 h-10 text-xs')}
 
           {/* Add to Cart */}
           <button
             disabled={!selectedSize}
-            onClick={() => {
-              const selectedVariant = product.variants?.find(v => v.size === selectedSize);
-              if (!selectedVariant) return;
-              addToCart({ ...product, size: selectedSize!, variantId: selectedVariant.variantId });
-              setShowCart(true);
-            }}
+            onClick={handleAddToCart}
             className="font-custom font-bold"
             style={{
               width: '100%',
@@ -160,25 +244,7 @@ export default function ProductPage() {
 
           {/* Info tabs */}
           <div style={{ borderTop: '1px solid #4b5563', paddingTop: '0.75rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', marginBottom: '0.625rem' }}>
-              {TABS.map(tab => (
-                <button
-                  key={tab}
-                  onClick={() => setInfoTab(tab)}
-                  className="font-custom bg-transparent border-none cursor-pointer"
-                  style={{
-                    color: 'white',
-                    fontSize: '0.75rem',
-                    textDecoration: infoTab === tab ? 'underline' : 'none',
-                  }}
-                >
-                  {tab.toUpperCase()}
-                </button>
-              ))}
-            </div>
-            <pre className="text-xs text-gray-300 font-custom whitespace-pre-wrap text-center leading-relaxed">
-              {renderInfoText()}
-            </pre>
+            {infoTabs('text-xs')}
           </div>
         </div>
       </div>
