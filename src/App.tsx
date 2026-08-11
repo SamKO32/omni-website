@@ -4,6 +4,7 @@ import Layout from './Layout';
 import { StoreProvider } from './context/StoreContext';
 import TVFrame from './components/ui/TVFrame';
 import VideoBackground from './components/ui/VideoBackground';
+import useIsMobile from './hooks/useIsMobile';
 import './styles/fonts.css';
 
 const StorePage = lazy(() => import('./pages/StorePage'));
@@ -16,11 +17,30 @@ const ListenPage = lazy(() => import('./pages/ListenPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
-type RouteVideo = { src: string; poster: string };
+type RouteVideo = {
+  src: string;
+  poster: string;
+  mobileSrc?: string;
+  mobilePoster?: string;
+  /** Object-fit to use for this route's video on mobile only; desktop is always 'cover'. */
+  mobileObjectFit?: 'cover' | 'fill';
+};
 
 const ROUTE_VIDEO: Record<string, RouteVideo | null> = {
-  '/':       { src: '/videos/GATEPAGEBG.mp4',   poster: '/images/posters/GATEPAGEBG_poster.jpg' },
-  '/home':   { src: '/videos/HOMEPAGEBG.mp4',   poster: '/images/posters/HOMEPAGEBG_poster.jpg' },
+  '/':       {
+    src: '/videos/GATEPAGEBG.mp4',
+    poster: '/images/posters/GATEPAGEBG_poster.jpg',
+    // No dedicated portrait video for the gate page — stretch to fill on mobile
+    // instead of cropping the (landscape) source, matching the gate hitbox's
+    // percentage-of-frame calibration either way.
+    mobileObjectFit: 'fill',
+  },
+  '/home':   {
+    src: '/videos/HOMEPAGEBG.mp4',
+    poster: '/images/posters/HOMEPAGEBG_poster.jpg',
+    mobileSrc: '/videos/HOMEPAGEBG_MOBILE.mp4',
+    mobilePoster: '/images/posters/HOMEPAGEBG_MOBILE_poster.jpg',
+  },
   '/listen': { src: '/videos/LISTENPAGEBG.mp4', poster: '/images/posters/LISTENPAGEBG_poster.jpg' },
   '/store':  null,
 };
@@ -49,7 +69,15 @@ function AppInner() {
     });
   }, [location]);
 
-  const video = getRouteVideo(displayLocation.pathname);
+  const isMobile = useIsMobile();
+  const routeVideo = getRouteVideo(displayLocation.pathname);
+  const video = routeVideo
+    ? {
+        src: isMobile && routeVideo.mobileSrc ? routeVideo.mobileSrc : routeVideo.src,
+        poster: isMobile && routeVideo.mobileSrc ? (routeVideo.mobilePoster ?? routeVideo.poster) : routeVideo.poster,
+        objectFit: (isMobile ? routeVideo.mobileObjectFit ?? 'cover' : 'cover') as 'cover' | 'fill',
+      }
+    : null;
 
   return (
     <>
@@ -63,7 +91,7 @@ function AppInner() {
           zIndex: 0,
           overflow: 'hidden',
         }}>
-          <VideoBackground src={video.src} poster={video.poster} />
+          <VideoBackground src={video.src} poster={video.poster} objectFit={video.objectFit} />
         </div>
       )}
 

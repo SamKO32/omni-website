@@ -1,4 +1,4 @@
-.PHONY: install lint start deploy
+.PHONY: install lint start kill-all deploy
 
 install:
 	npm install
@@ -6,7 +6,10 @@ install:
 lint:
 	npm run lint
 
-start:
+kill-all:
+	@./scripts/kill-dev.sh
+
+start: kill-all
 	npx vite --host
 
 deploy:

@@ -1,120 +1,46 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useIsMobile from "../hooks/useIsMobile";
+import VideoHitboxLayer, { Hitbox } from "../components/ui/VideoHitboxLayer";
+
+// Calibrated against public/videos/HOMEPAGEBG.mp4 (1920x1080, single row layout).
+const DESKTOP_VIDEO = { width: 1920, height: 1080 };
+const DESKTOP_ZONES = [
+  { path: "/store",   label: "Shop",    leftPct: 26, topPct: 40, widthPct: 9.5,  heightPct: 31 },
+  { path: "/listen",  label: "Listen",  leftPct: 37, topPct: 40, widthPct: 11.5, heightPct: 31 },
+  { path: "/faq",     label: "About",   leftPct: 50, topPct: 40, widthPct: 9.5,  heightPct: 31 },
+  { path: "/contact", label: "Contact", leftPct: 61, topPct: 40, widthPct: 12,   heightPct: 31 },
+];
+
+// Calibrated against public/videos/HOMEPAGEBG_MOBILE.mp4 (1080x1920, 2x2 grid layout).
+const MOBILE_VIDEO = { width: 1080, height: 1920 };
+const MOBILE_ZONES = [
+  { path: "/store",   label: "Shop",    leftPct: 19, topPct: 33, widthPct: 24, heightPct: 21 },
+  { path: "/listen",  label: "Listen",  leftPct: 56, topPct: 33, widthPct: 26, heightPct: 21 },
+  { path: "/faq",     label: "About",   leftPct: 19, topPct: 56, widthPct: 25, heightPct: 20 },
+  { path: "/contact", label: "Contact", leftPct: 53, topPct: 56, widthPct: 30, heightPct: 20 },
+];
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
-  const handleSubmit = (path: string) => {
-    navigate(path);
-  };
+  const video = isMobile ? MOBILE_VIDEO : DESKTOP_VIDEO;
+  const zones = isMobile ? MOBILE_ZONES : DESKTOP_ZONES;
 
   return (
-    <div className="relative w-screen h-[100svh] overflow-hidden">
-      <div className="relative h-full w-full text-white">
-        {/* Store clickable areas */}
-        {/* Icon */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/store")}
-          aria-label="Go to Store"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[50dvh] left-[31.5vw] w-[11vw] h-[18dvh]
-            sm:top-[50vh] sm:left-[31.5vw] sm:w-[11vw] sm:h-[20vh]
-          "
+    <VideoHitboxLayer intrinsicWidth={video.width} intrinsicHeight={video.height}>
+      {zones.map((zone) => (
+        <Hitbox
+          key={zone.path}
+          leftPct={zone.leftPct}
+          topPct={zone.topPct}
+          widthPct={zone.widthPct}
+          heightPct={zone.heightPct}
+          onClick={() => navigate(zone.path)}
+          ariaLabel={zone.label}
         />
-        {/* Label */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/store")}
-          aria-label="Store"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[68dvh] left-[32vw] w-[10vw] h-[9dvh]
-            sm:top-[68.5vh] sm:left-[31.5vw] sm:w-[8vw] sm:h-[7vh]
-          "
-        />
-
-        {/* Listen clickable areas */}
-        {/* Icon */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/listen")}
-          aria-label="Go to Listen"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[50dvh] left-[43.5vw] w-[11vw] h-[18dvh]
-            sm:top-[50vh] sm:left-[43.5vw] sm:w-[11vw] sm:h-[20vh]
-          "
-        />
-        {/* Label */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/listen")}
-          aria-label="Listen"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[68dvh] left-[43vw] w-[11vw] h-[9dvh]
-            sm:top-[68.5vh] sm:left-[43vw] sm:w-[11vw] sm:h-[7vh]
-          "
-        />
-
-        {/* FAQ clickable areas */}
-        {/* Icon */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/faq")}
-          aria-label="Go to FAQ"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[50dvh] left-[55vw] w-[11vw] h-[18dvh]
-            sm:top-[50vh] sm:left-[55.5vw] sm:w-[11vw] sm:h-[20vh]
-          "
-        />
-        {/* Label */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/faq")}
-          aria-label="FAQ"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[68dvh] left-[55vw] w-[10vw] h-[9dvh]
-            sm:top-[68.5vh] sm:left-[55vw] sm:w-[11vw] sm:h-[7vh]
-          "
-        />
-
-        {/* Contact clickable areas */}
-        {/* Icon */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/contact")}
-          aria-label="Go to Contact"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[50dvh] left-[67.5vw] w-[11vw] h-[18dvh]
-            sm:top-[50vh] sm:left-[67.5vw] sm:w-[11vw] sm:h-[20vh]
-          "
-        />
-        {/* Label */}
-        <button
-          type="button"
-          onClick={() => handleSubmit("/contact")}
-          aria-label="Contact"
-          className="
-            absolute -translate-x-1/2 -translate-y-1/2
-            cursor-pointer
-            top-[68dvh] left-[67.5vw] w-[13vw] h-[9dvh]
-            sm:top-[68.5vh] sm:left-[67.5vw] sm:w-[13vw] sm:h-[7vh]
-          "
-        />
-      </div>
-    </div>
+      ))}
+    </VideoHitboxLayer>
   );
 }

@@ -63,7 +63,7 @@ export default function ContactPage() {
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
       }}
-      className="text-white flex flex-col items-center justify-center gap-2 sm:gap-3 p-3 sm:p-5"
+      className="text-white flex flex-col items-center justify-center gap-2 sm:gap-3 px-16 py-3 sm:px-5 sm:py-5"
     >
     <div className="w-full max-w-[420px] flex flex-col items-center gap-2 sm:gap-3">
       <h1 className="font-custom font-bold text-center text-xl sm:text-3xl">

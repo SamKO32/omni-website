@@ -3,9 +3,10 @@ import React, { useState, useRef, useEffect } from 'react';
 interface VideoBackgroundProps {
   src: string;
   poster?: string;
+  objectFit?: 'cover' | 'fill';
 }
 
-export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
+export default function VideoBackground({ src, poster, objectFit = 'cover' }: VideoBackgroundProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -25,7 +26,7 @@ export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
     <div className="relative w-full h-full">
       {/* Poster overlay — fades out once video is ready, never unmounts to avoid flash */}
       <div
-        className="absolute inset-0 z-10 bg-center bg-[length:100%_100%] sm:bg-cover"
+        className={`absolute inset-0 z-10 bg-center ${objectFit === 'fill' ? 'bg-[length:100%_100%]' : 'bg-cover'}`}
         style={{
           backgroundImage: poster ? `url(${poster})` : undefined,
           backgroundColor: !poster ? 'black' : undefined,
@@ -42,7 +43,7 @@ export default function VideoBackground({ src, poster }: VideoBackgroundProps) {
         playsInline
         preload="auto"
         src={src}
-        className="absolute inset-0 h-full w-full object-fill sm:object-cover"
+        className={`absolute inset-0 h-full w-full ${objectFit === 'fill' ? 'object-fill' : 'object-cover'}`}
       />
     </div>
   );
