@@ -6,6 +6,12 @@ import { createShopifyCheckout } from '../../../lib/shopify';
 
 type GroupedCartItem = CartItem & { quantity: number };
 
+// Strips currency formatting ("$" and thousands separators) before parsing —
+// a plain .replace('$', '') would silently truncate "$1,200.00" to 1.
+function parsePrice(price: string): number {
+  return parseFloat(price.replace(/[$,]/g, ''));
+}
+
 export default function CartPopup({ onClose }: { onClose: () => void }) {
   const { cart, removeFromCart, addToCart, clearCart } = useStore();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -28,8 +34,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     () =>
       groupedItems
         .reduce(
-          (total, item) =>
-            total + item.quantity * parseFloat(item.price.replace('$', '')),
+          (total, item) => total + item.quantity * parsePrice(item.price),
           0
         )
         .toFixed(2),
@@ -152,7 +157,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
               />
 
               <div className="text-right font-semibold w-14 text-sm">
-                ${(item.quantity * parseFloat(item.price.replace('$', ''))).toFixed(2)}
+                ${(item.quantity * parsePrice(item.price)).toFixed(2)}
               </div>
             </li>
           ))}
