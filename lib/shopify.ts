@@ -2,7 +2,12 @@
 
 const API_VERSION = "2024-01";
 
-export async function createShopifyCheckout(items: any[]) {
+export interface CheckoutItem {
+  variantId: string;
+  quantity: number;
+}
+
+export async function createShopifyCheckout(items: CheckoutItem[]) {
   const domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
   const token = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN;
 

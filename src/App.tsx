@@ -1,9 +1,11 @@
 import React, { useState, useTransition, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Layout from './Layout';
-import { StoreProvider, useStore } from './context/StoreContext';
+import { StoreProvider } from './context/StoreContext';
+import { useStore } from './context/useStore';
 import TVFrame from './components/ui/TVFrame';
 import VideoBackground from './components/ui/VideoBackground';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 import useIsMobile from './hooks/useIsMobile';
 import './styles/fonts.css';
 
@@ -12,7 +14,6 @@ const ProductPage = lazy(() => import('./pages/ProductPage'));
 const GatePage = lazy(() => import('./pages/GatePage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
-const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const ListenPage = lazy(() => import('./pages/ListenPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
@@ -124,21 +125,22 @@ function AppInner() {
         }}
       />
 
-      <Suspense fallback={null}>
-        <Routes location={displayLocation}>
-          <Route path="/" element={<GatePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route element={<Layout />}>
-            <Route path="/store" element={<StorePage />} />
-            <Route path="/listen" element={<ListenPage />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <Routes location={displayLocation}>
+            <Route path="/" element={<GatePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route element={<Layout />}>
+              <Route path="/store" element={<StorePage />} />
+              <Route path="/listen" element={<ListenPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

@@ -1,11 +1,15 @@
 // components/ui/CartPopup.tsx
 import React, { useMemo, useState } from 'react';
-import { useStore } from '../../context/StoreContext';
+import { CartItem } from '../../context/storeContextValue';
+import { useStore } from '../../context/useStore';
 import { createShopifyCheckout } from '../../../lib/shopify';
+
+type GroupedCartItem = CartItem & { quantity: number };
 
 export default function CartPopup({ onClose }: { onClose: () => void }) {
   const { cart, removeFromCart, addToCart, clearCart } = useStore();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const groupedItems = useMemo(() => {
     const grouped = cart.reduce((acc, item) => {
@@ -16,8 +20,8 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
         acc[key].quantity += 1;
       }
       return acc;
-    }, {} as Record<string, any>);
-    return Object.values(grouped) as any[];
+    }, {} as Record<string, GroupedCartItem>);
+    return Object.values(grouped);
   }, [cart]);
 
   const subtotal = useMemo(
@@ -34,7 +38,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
 
   const handleQuantityChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    item: any
+    item: GroupedCartItem
   ) => {
     const newQuantity = parseInt(e.target.value);
     const currentCount = item.quantity;
@@ -59,7 +63,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     }
   };
 
-  const handleRemoveAll = (item: any) => {
+  const handleRemoveAll = (item: GroupedCartItem) => {
     for (let i = 0; i < item.quantity; i++) {
       removeFromCart(item);
     }
@@ -68,13 +72,14 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
   const handleCheckout = async () => {
     if (isCheckingOut) return;
     setIsCheckingOut(true);
+    setCheckoutError(null);
     try {
       const data = await createShopifyCheckout(groupedItems);
       const url = data?.data?.cartLinesAdd?.cart?.checkoutUrl;
 
       if (!url) {
         console.error("Checkout URL missing:", data);
-        alert("Something went wrong creating your checkout. Please try again.");
+        setCheckoutError("Something went wrong creating your checkout. Please try again.");
         return;
       }
 
@@ -87,7 +92,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     } catch (error) {
       console.error("Error during checkout:", error);
       const message = error instanceof Error ? error.message : "We couldn’t connect to Shopify. Please try again.";
-      alert(message);
+      setCheckoutError(message);
     } finally {
       setIsCheckingOut(false);
     }
@@ -108,7 +113,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
 >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold">CART</h2>
-        <button onClick={onClose} className="text-gray-600 hover:text-red-500 text-lg">
+        <button onClick={onClose} aria-label="Close cart" className="text-gray-600 hover:text-red-500 text-lg">
           ✕
         </button>
       </div>
@@ -121,6 +126,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
             <li key={index} className="flex items-center gap-3 text-sm">
               <button
                 onClick={() => handleRemoveAll(item)}
+                aria-label="Remove item"
                 className="text-black text-xl hover:text-red-500"
               >
                 ✕
@@ -156,6 +162,10 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
       {groupedItems.length > 0 && (
         <div className="mt-6">
           <p className="font-semibold text-right">Subtotal: ${subtotal}</p>
+
+          {checkoutError && (
+            <p className="mt-2 text-xs text-red-600 text-center">{checkoutError}</p>
+          )}
 
           <button
             onClick={handleCheckout}

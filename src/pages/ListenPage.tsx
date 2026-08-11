@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
 
 export default function ListenPage() {
+  // Computed once per mount, not per render — otherwise every re-render
+  // reshuffles all 40 bars instead of letting the CSS animation run in place.
+  const bars = useMemo(
+    () =>
+      Array.from({ length: 40 }, () => ({
+        height: Math.random() * 100 + 20,
+        duration: 1 + Math.random(),
+      })),
+    []
+  );
+
   return (
     <>
       {/* Background visualizer bars */}
       <div className="fixed inset-0 -z-10 flex items-end justify-center opacity-20 pointer-events-none">
         <div className="flex gap-[1px] h-40 items-end animate-pulse">
-          {Array.from({ length: 40 }).map((_, i) => (
+          {bars.map((bar, i) => (
             <div
               key={i}
               className="w-[2px] bg-green-400"
               style={{
-                height: `${Math.random() * 100 + 20}%`,
-                animation: `bounce ${1 + Math.random()}s infinite ease-in-out`,
+                height: `${bar.height}%`,
+                animation: `bounce ${bar.duration}s infinite ease-in-out`,
               }}
             />
           ))}

@@ -1,30 +1,6 @@
 // context/StoreContext.tsx
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-
-export type Product = {
-  id: number;
-  name: string;
-  image: string;
-  price: string;
-  description?: string;
-  extraImages?: string[];
-  sizes?: string[];
-  variants?: { size: string; variantId: string }[];
-};
-
-export type CartItem = Product & {
-  size: string;
-  variantId: string;
-};
-
-type StoreContextType = {
-  cart: CartItem[];
-  addToCart: (item: CartItem) => void;
-  removeFromCart: (match: CartItem) => void;
-  clearCart: () => void;
-  showCart: boolean;
-  setShowCart: (show: boolean) => void;
-};
+import React, { useEffect, useMemo, useState } from "react";
+import { StoreContext, CartItem } from "./storeContextValue";
 
 const CART_STORAGE_KEY = "omni_cart_v1";
 const CART_TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
@@ -51,10 +27,6 @@ function loadCartFromStorage(): CartItem[] {
     if (!raw) return [];
 
     const payload = safeParseJSON<StoredCartPayload>(raw);
-
-    // Backwards compat: if you previously stored just an array, support it.
-    if (Array.isArray(payload as any)) return payload as any as CartItem[];
-
     if (!payload || payload.version !== 1) return [];
 
     // TTL check
@@ -95,8 +67,6 @@ function clearCartStorage() {
     // ignore
   }
 }
-
-const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   // hydrate once on first render
@@ -143,10 +113,4 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
-};
-
-export const useStore = () => {
-  const context = useContext(StoreContext);
-  if (!context) throw new Error("useStore must be used within a StoreProvider");
-  return context;
 };
