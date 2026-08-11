@@ -6,6 +6,7 @@ import { useStore } from './context/useStore';
 import TVFrame from './components/ui/TVFrame';
 import VideoBackground from './components/ui/VideoBackground';
 import ErrorBoundary from './components/ui/ErrorBoundary';
+import DelayedFallback from './components/ui/DelayedFallback';
 import useIsMobile from './hooks/useIsMobile';
 import './styles/fonts.css';
 
@@ -126,7 +127,7 @@ function AppInner() {
       />
 
       <ErrorBoundary>
-        <Suspense fallback={null}>
+        <Suspense fallback={<DelayedFallback />}>
           <Routes location={displayLocation}>
             <Route path="/" element={<GatePage />} />
             <Route path="/home" element={<HomePage />} />

@@ -112,3 +112,8 @@ button {
 .delay-150 {
   animation-delay: 150ms;
 }
+
+@keyframes retro-block-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 1; }
+}
