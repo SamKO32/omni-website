@@ -40,6 +40,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     const currentCount = item.quantity;
 
     if (isNaN(newQuantity)) return;
+    if (newQuantity < 0) return;
 
     if (newQuantity === 0) {
       for (let i = 0; i < currentCount; i++) {
@@ -69,10 +70,7 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
     setIsCheckingOut(true);
     try {
       const data = await createShopifyCheckout(groupedItems);
-
-      const url =
-        data?.data?.cartLinesAdd?.cart?.checkoutUrl ??
-        data?.data?.cartCreate?.cart?.checkoutUrl;
+      const url = data?.data?.cartLinesAdd?.cart?.checkoutUrl;
 
       if (!url) {
         console.error("Checkout URL missing:", data);
@@ -80,13 +78,16 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
         return;
       }
 
-      // Redirect first — if navigation succeeds the page unloads and cart cleanup is moot.
-      // Clearing before redirect risks losing the cart if the browser blocks navigation.
+      // Close the popup and clear the cart together, right after triggering the
+      // redirect — closing first means there's nothing left mounted to visibly
+      // flash an "empty cart" state while the browser is still leaving the page.
       window.location.href = url;
+      onClose();
       clearCart();
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert("We couldn’t connect to Shopify. Please try again.");
+      const message = error instanceof Error ? error.message : "We couldn’t connect to Shopify. Please try again.";
+      alert(message);
     } finally {
       setIsCheckingOut(false);
     }

@@ -88,5 +88,11 @@ export async function createShopifyCheckout(items: any[]) {
   );
 
   const addLinesData = await addLinesResponse.json();
+  const addLinesErrors = addLinesData?.data?.cartLinesAdd?.userErrors;
+  if (addLinesErrors?.length) {
+    console.error("Shopify cartLinesAdd userErrors:", addLinesErrors);
+    throw new Error(addLinesErrors[0]?.message ?? "Failed to add items to cart");
+  }
+
   return addLinesData;
 }

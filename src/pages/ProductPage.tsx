@@ -10,8 +10,7 @@ const TABS: InfoTab[] = ['details', 'fit', 'shipping'];
 export default function ProductPage() {
   const { id } = useParams();
   const product = products.find(p => p.id === parseInt(id ?? '0'));
-  const { addToCart } = useStore();
-  const [showCart, setShowCart] = useState(false);
+  const { addToCart, showCart, setShowCart } = useStore();
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);

@@ -1,7 +1,7 @@
 import React, { useState, useTransition, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Layout from './Layout';
-import { StoreProvider } from './context/StoreContext';
+import { StoreProvider, useStore } from './context/StoreContext';
 import TVFrame from './components/ui/TVFrame';
 import VideoBackground from './components/ui/VideoBackground';
 import useIsMobile from './hooks/useIsMobile';
@@ -56,6 +56,14 @@ function AppInner() {
   const location = useLocation();
   const navigate = useNavigate();
   const [, startTransition] = useTransition();
+  const { setShowCart } = useStore();
+
+  // showCart is shared app-wide state, not page-local — close it on every route
+  // change so leaving a page (e.g. via the OMNI logo) doesn't leave the cart
+  // popup marked "open" for whichever store/product page you land on next.
+  useEffect(() => {
+    setShowCart(false);
+  }, [location.pathname, setShowCart]);
 
   // displayLocation lags behind location — it only updates once the new page
   // chunk has finished loading, so the old page stays visible until the new

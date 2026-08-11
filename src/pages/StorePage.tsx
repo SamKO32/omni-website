@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { products } from '../data/products';
 import { Link } from 'react-router-dom';
 import CartPopup from '../components/ui/CartPopup';
+import { useStore } from '../context/StoreContext';
 
 export default function StorePage() {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
-  const [showCart, setShowCart] = useState(false);
+  const { showCart, setShowCart } = useStore();
 
   // Disable scroll when cart is open
   useEffect(() => {
