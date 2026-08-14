@@ -1,6 +1,12 @@
 import React, { useMemo } from 'react';
 import { FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
 
+// Newest first.
+const SPOTIFY_ALBUM_IDS = [
+  '1e5AFX8fKlyBMVmxMUYg61',
+  '3dQ3KA2C3L185Olu1Ls11D',
+];
+
 export default function ListenPage() {
   // Computed once per mount, not per render — otherwise every re-render
   // reshuffles all 40 bars instead of letting the CSS animation run in place.
@@ -41,15 +47,24 @@ export default function ListenPage() {
       }}
         className="hide-scrollbar text-white font-custom space-y-8 text-center"
       >
-        <iframe
-          src="https://open.spotify.com/embed/album/3dQ3KA2C3L185Olu1Ls11D?utm_source=generator"
-          width="100%"
-          style={{ height: 'clamp(160px, 45dvh, 380px)' }}
-          frameBorder="0"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          className="rounded-xl shadow-lg"
-        />
+        {/* Compact (152px) Spotify players — at full height two embeds would
+           overflow the CRT screen area and force scrolling on both desktop
+           and mobile. Newest album first. */}
+        <div className="w-full flex flex-col gap-4">
+          {SPOTIFY_ALBUM_IDS.map((albumId) => (
+            <iframe
+              key={albumId}
+              title={`Spotify album ${albumId}`}
+              src={`https://open.spotify.com/embed/album/${albumId}?utm_source=generator`}
+              width="100%"
+              height="152"
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              className="rounded-xl shadow-lg"
+            />
+          ))}
+        </div>
 
         <div className="flex flex-wrap justify-center gap-3">
           <a href="https://open.spotify.com/album/3dQ3KA2C3L185Olu1Ls11D?si=1QDguFI9QUK9FnjUyvOr_g" target="_blank" rel="noreferrer"

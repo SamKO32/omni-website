@@ -4,8 +4,8 @@ import { useStore } from '../context/useStore';
 import { products } from '../data/products';
 import CartPopup from '../components/ui/CartPopup';
 
-type InfoTab = 'details' | 'fit' | 'shipping';
-const TABS: InfoTab[] = ['details', 'fit', 'shipping'];
+type InfoTab = 'details' | 'shipping';
+const TABS: InfoTab[] = ['details', 'shipping'];
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -37,8 +37,7 @@ export default function ProductPage() {
   const renderInfoText = () => {
     switch (infoTab) {
       case 'details':  return product.description;
-      case 'fit':      return `True to size.\nModel is 5'7, wearing Large.`;
-      case 'shipping': return `Ships within 1 week.\nPre-orders allow 6 to 8 weeks for production.\nInternational orders may be subject to customs fees.`;
+      case 'shipping': return `Ships within 1 week\nPre-orders allow 6 to 8 weeks for production\nInternational orders may be subject to customs fees`;
       default:         return '';
     }
   };
