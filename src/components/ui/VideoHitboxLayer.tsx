@@ -1,5 +1,5 @@
-import React from 'react';
-import useCoverRect, { ObjectFit } from '../../hooks/useCoverRect';
+import React from "react";
+import useCoverRect, { ObjectFit } from "../../hooks/useCoverRect";
 
 interface VideoHitboxLayerProps {
   /** Intrinsic pixel size of the background video this layer's coordinates are calibrated against. */
@@ -13,13 +13,18 @@ interface VideoHitboxLayerProps {
 // Renders a fixed box that exactly tracks the background video's rendered frame,
 // so that percentage-positioned children stay pinned to whatever is drawn in the
 // video regardless of viewport size or aspect ratio.
-export default function VideoHitboxLayer({ intrinsicWidth, intrinsicHeight, fit = 'cover', children }: VideoHitboxLayerProps) {
+export default function VideoHitboxLayer({
+  intrinsicWidth,
+  intrinsicHeight,
+  fit = "cover",
+  children,
+}: VideoHitboxLayerProps) {
   const rect = useCoverRect(intrinsicWidth, intrinsicHeight, fit);
 
   return (
     <div
       style={{
-        position: 'fixed',
+        position: "fixed",
         left: rect.left,
         top: rect.top,
         width: rect.width,
@@ -43,13 +48,21 @@ interface HitboxProps {
 }
 
 // A single clickable zone positioned as a percentage of the enclosing VideoHitboxLayer.
-export function Hitbox({ leftPct, topPct, widthPct, heightPct, onClick, ariaLabel, debug }: HitboxProps) {
+export function Hitbox({
+  leftPct,
+  topPct,
+  widthPct,
+  heightPct,
+  onClick,
+  ariaLabel,
+  debug,
+}: HitboxProps) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className={`absolute cursor-pointer ${debug ? 'bg-red-500/50' : ''}`}
+      className={`absolute cursor-pointer ${debug ? "bg-red-500/50" : ""}`}
       style={{
         left: `${leftPct}%`,
         top: `${topPct}%`,

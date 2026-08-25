@@ -1,23 +1,23 @@
-import React, { useState, useTransition, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import { StoreProvider } from './context/StoreContext';
-import { useStore } from './context/useStore';
-import TVFrame from './components/ui/TVFrame';
-import VideoBackground from './components/ui/VideoBackground';
-import ErrorBoundary from './components/ui/ErrorBoundary';
-import DelayedFallback from './components/ui/DelayedFallback';
-import useIsMobile from './hooks/useIsMobile';
-import './styles/fonts.css';
+import React, { useState, useTransition, useEffect, lazy, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import Layout from "./Layout";
+import { StoreProvider } from "./context/StoreContext";
+import { useStore } from "./context/useStore";
+import TVFrame from "./components/ui/TVFrame";
+import VideoBackground from "./components/ui/VideoBackground";
+import ErrorBoundary from "./components/ui/ErrorBoundary";
+import DelayedFallback from "./components/ui/DelayedFallback";
+import useIsMobile from "./hooks/useIsMobile";
+import "./styles/fonts.css";
 
-const StorePage = lazy(() => import('./pages/StorePage'));
-const ProductPage = lazy(() => import('./pages/ProductPage'));
-const GatePage = lazy(() => import('./pages/GatePage'));
-const FAQPage = lazy(() => import('./pages/FAQPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const ListenPage = lazy(() => import('./pages/ListenPage'));
-const HomePage = lazy(() => import('./pages/HomePage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const StorePage = lazy(() => import("./pages/StorePage"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
+const GatePage = lazy(() => import("./pages/GatePage"));
+const FAQPage = lazy(() => import("./pages/FAQPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const ListenPage = lazy(() => import("./pages/ListenPage"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 type RouteVideo = {
   src: string;
@@ -25,32 +25,35 @@ type RouteVideo = {
   mobileSrc?: string;
   mobilePoster?: string;
   /** Object-fit to use for this route's video on mobile only; desktop is always 'cover'. */
-  mobileObjectFit?: 'cover' | 'fill';
+  mobileObjectFit?: "cover" | "fill";
 };
 
 const ROUTE_VIDEO: Record<string, RouteVideo | null> = {
-  '/':       {
-    src: '/videos/GATEPAGEBG.mp4',
-    poster: '/images/posters/GATEPAGEBG_poster.jpg',
+  "/": {
+    src: "/videos/GATEPAGEBG.mp4",
+    poster: "/images/posters/GATEPAGEBG_poster.jpg",
     // No dedicated portrait video for the gate page — stretch to fill on mobile
     // instead of cropping the (landscape) source, matching the gate hitbox's
     // percentage-of-frame calibration either way.
-    mobileObjectFit: 'fill',
+    mobileObjectFit: "fill",
   },
-  '/home':   {
-    src: '/videos/HOMEPAGEBG.mp4',
-    poster: '/images/posters/HOMEPAGEBG_poster.jpg',
-    mobileSrc: '/videos/HOMEPAGEBG_MOBILE.mp4',
-    mobilePoster: '/images/posters/HOMEPAGEBG_MOBILE_poster.jpg',
+  "/home": {
+    src: "/videos/HOMEPAGEBG.mp4",
+    poster: "/images/posters/HOMEPAGEBG_poster.jpg",
+    mobileSrc: "/videos/HOMEPAGEBG_MOBILE.mp4",
+    mobilePoster: "/images/posters/HOMEPAGEBG_MOBILE_poster.jpg",
   },
-  '/listen': { src: '/videos/LISTENPAGEBG.mp4', poster: '/images/posters/LISTENPAGEBG_poster.jpg' },
-  '/store':  null,
+  "/listen": { src: "/videos/LISTENPAGEBG.mp4", poster: "/images/posters/LISTENPAGEBG_poster.jpg" },
+  "/store": null,
 };
-const DEFAULT_VIDEO: RouteVideo = { src: '/videos/bgspace.mp4', poster: '/images/posters/bgspace_poster.jpg' };
+const DEFAULT_VIDEO: RouteVideo = {
+  src: "/videos/bgspace.mp4",
+  poster: "/images/posters/bgspace_poster.jpg",
+};
 
 function getRouteVideo(pathname: string): RouteVideo | null {
   if (Object.prototype.hasOwnProperty.call(ROUTE_VIDEO, pathname)) return ROUTE_VIDEO[pathname];
-  if (pathname.startsWith('/product/')) return null;
+  if (pathname.startsWith("/product/")) return null;
   return DEFAULT_VIDEO;
 }
 
@@ -84,44 +87,53 @@ function AppInner() {
   const video = routeVideo
     ? {
         src: isMobile && routeVideo.mobileSrc ? routeVideo.mobileSrc : routeVideo.src,
-        poster: isMobile && routeVideo.mobileSrc ? (routeVideo.mobilePoster ?? routeVideo.poster) : routeVideo.poster,
-        objectFit: (isMobile ? routeVideo.mobileObjectFit ?? 'cover' : 'cover') as 'cover' | 'fill',
+        poster:
+          isMobile && routeVideo.mobileSrc
+            ? (routeVideo.mobilePoster ?? routeVideo.poster)
+            : routeVideo.poster,
+        objectFit: (isMobile ? (routeVideo.mobileObjectFit ?? "cover") : "cover") as
+          "cover" | "fill",
       }
     : null;
 
   return (
     <>
       {video && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100svh',
-          zIndex: 0,
-          overflow: 'hidden',
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100svh",
+            zIndex: 0,
+            overflow: "hidden",
+          }}
+        >
           <VideoBackground src={video.src} poster={video.poster} objectFit={video.objectFit} />
         </div>
       )}
 
       {/* CRT screen effect — scanlines + edge vignette, sits above video below content */}
-      <div className="vignette" style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'none' }} />
+      <div
+        className="vignette"
+        style={{ position: "fixed", inset: 0, zIndex: 100, pointerEvents: "none" }}
+      />
 
       <TVFrame />
 
       {/* Global OMNI sign — always navigates to /home (or / when already on /home) */}
       <div
-        onClick={() => navigate(location.pathname === '/home' ? '/' : '/home')}
+        onClick={() => navigate(location.pathname === "/home" ? "/" : "/home")}
         style={{
-          position: 'fixed',
-          top: '4vh',
-          left: '50vw',
-          width: 'max(9.5vw, 44px)',
-          height: 'max(7vh, 44px)',
-          borderRadius: '70px',
-          transform: 'translate(-50%, -50%)',
-          cursor: 'pointer',
+          position: "fixed",
+          top: "4vh",
+          left: "50vw",
+          width: "max(9.5vw, 44px)",
+          height: "max(7vh, 44px)",
+          borderRadius: "70px",
+          transform: "translate(-50%, -50%)",
+          cursor: "pointer",
           zIndex: 10000,
         }}
       />

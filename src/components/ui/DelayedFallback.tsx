@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import RetroLoader from './RetroLoader';
+import React, { useEffect, useState } from "react";
+import RetroLoader from "./RetroLoader";
 
 interface DelayedFallbackProps {
   delayMs?: number;

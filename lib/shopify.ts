@@ -12,16 +12,14 @@ export async function createShopifyCheckout(items: CheckoutItem[]) {
   const token = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN;
 
   // Create cart
-  const cartResponse = await fetch(
-    `https://${domain}/api/${API_VERSION}/graphql.json`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": token,
-      },
-      body: JSON.stringify({
-        query: `
+  const cartResponse = await fetch(`https://${domain}/api/${API_VERSION}/graphql.json`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shopify-Storefront-Access-Token": token,
+    },
+    body: JSON.stringify({
+      query: `
           mutation CreateCart {
             cartCreate {
               cart {
@@ -35,9 +33,8 @@ export async function createShopifyCheckout(items: CheckoutItem[]) {
             }
           }
         `,
-      }),
-    }
-  );
+    }),
+  });
 
   const cartData = await cartResponse.json();
   const cartCreate = cartData?.data?.cartCreate;
@@ -55,22 +52,20 @@ export async function createShopifyCheckout(items: CheckoutItem[]) {
   }
 
   // Convert your line items → Shopify format
-  const lines = items.map(item => ({
+  const lines = items.map((item) => ({
     quantity: item.quantity ?? 1,
     merchandiseId: item.variantId,
   }));
 
   // Add items
-  const addLinesResponse = await fetch(
-    `https://${domain}/api/${API_VERSION}/graphql.json`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": token,
-      },
-      body: JSON.stringify({
-        query: `
+  const addLinesResponse = await fetch(`https://${domain}/api/${API_VERSION}/graphql.json`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shopify-Storefront-Access-Token": token,
+    },
+    body: JSON.stringify({
+      query: `
           mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
             cartLinesAdd(cartId: $cartId, lines: $lines) {
               cart {
@@ -84,13 +79,12 @@ export async function createShopifyCheckout(items: CheckoutItem[]) {
             }
           }
         `,
-        variables: {
-          cartId,
-          lines
-        }
-      }),
-    }
-  );
+      variables: {
+        cartId,
+        lines,
+      },
+    }),
+  });
 
   const addLinesData = await addLinesResponse.json();
   const addLinesErrors = addLinesData?.data?.cartLinesAdd?.userErrors;

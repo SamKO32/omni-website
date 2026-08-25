@@ -1,11 +1,8 @@
-import React, { useMemo } from 'react';
-import { FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
+import React, { useMemo } from "react";
+import { FaSpotify, FaApple, FaSoundcloud } from "react-icons/fa";
 
 // Newest first.
-const SPOTIFY_ALBUM_IDS = [
-  '1e5AFX8fKlyBMVmxMUYg61',
-  '3dQ3KA2C3L185Olu1Ls11D',
-];
+const SPOTIFY_ALBUM_IDS = ["1e5AFX8fKlyBMVmxMUYg61", "3dQ3KA2C3L185Olu1Ls11D"];
 
 export default function ListenPage() {
   // Computed once per mount, not per render — otherwise every re-render
@@ -22,8 +19,8 @@ export default function ListenPage() {
   return (
     <>
       {/* Background visualizer bars */}
-      <div className="fixed inset-0 -z-10 flex items-end justify-center opacity-20 pointer-events-none">
-        <div className="flex gap-[1px] h-40 items-end animate-pulse">
+      <div className="pointer-events-none fixed inset-0 -z-10 flex items-end justify-center opacity-20">
+        <div className="flex h-40 animate-pulse items-end gap-px">
           {bars.map((bar, i) => (
             <div
               key={i}
@@ -38,19 +35,29 @@ export default function ListenPage() {
       </div>
 
       {/* Main content */}
-      <div style={{
-        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-        width: '90%', maxWidth: '600px', maxHeight: '80vh',
-        padding: '2rem', overflowY: 'auto', zIndex: 2,
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-        backgroundColor: 'transparent',
-      }}
-        className="hide-scrollbar text-white font-custom space-y-8 text-center"
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "90%",
+          maxWidth: "600px",
+          maxHeight: "80vh",
+          padding: "2rem",
+          overflowY: "auto",
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          backgroundColor: "transparent",
+        }}
+        className="hide-scrollbar space-y-8 text-center font-custom text-white"
       >
         {/* Compact (152px) Spotify players — at full height two embeds would
            overflow the CRT screen area and force scrolling on both desktop
            and mobile. Newest album first. */}
-        <div className="w-full flex flex-col gap-4">
+        <div className="flex w-full flex-col gap-4">
           {SPOTIFY_ALBUM_IDS.map((albumId) => (
             <iframe
               key={albumId}
@@ -67,16 +74,28 @@ export default function ListenPage() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
-          <a href="https://open.spotify.com/album/3dQ3KA2C3L185Olu1Ls11D?si=1QDguFI9QUK9FnjUyvOr_g" target="_blank" rel="noreferrer"
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-full text-sm transition-colors">
+          <a
+            href="https://open.spotify.com/album/3dQ3KA2C3L185Olu1Ls11D?si=1QDguFI9QUK9FnjUyvOr_g"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 rounded-full bg-green-600 px-4 py-2 text-sm transition-colors hover:bg-green-700"
+          >
             <FaSpotify /> Spotify
           </a>
-          <a href="https://music.apple.com/us/artist/omni/1755264397" target="_blank" rel="noreferrer"
-            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-full text-sm transition-colors">
+          <a
+            href="https://music.apple.com/us/artist/omni/1755264397"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-sm transition-colors hover:bg-red-700"
+          >
             <FaApple /> Apple Music
           </a>
-          <a href="https://soundcloud.com/omniradio/radio4" target="_blank" rel="noreferrer"
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-full text-sm transition-colors">
+          <a
+            href="https://soundcloud.com/omniradio/radio4"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm transition-colors hover:bg-orange-600"
+          >
             <FaSoundcloud /> SoundCloud
           </a>
         </div>

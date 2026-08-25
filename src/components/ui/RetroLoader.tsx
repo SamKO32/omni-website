@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const BLOCK_COUNT = 12;
 
@@ -8,16 +8,16 @@ export default function RetroLoader() {
   return (
     <div
       style={{
-        position: 'fixed',
+        position: "fixed",
         inset: 0,
         zIndex: 2,
-        background: 'rgba(0, 0, 0, 0.55)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        background: "rgba(0, 0, 0, 0.55)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
       }}
       className="flex flex-col items-center justify-center gap-4"
     >
-      <div className="font-custom text-white text-xs sm:text-sm tracking-[0.3em] animate-flicker">
+      <div className="animate-flicker font-custom text-xs tracking-[0.3em] text-white sm:text-sm">
         LOADING
       </div>
 
@@ -25,9 +25,9 @@ export default function RetroLoader() {
         {Array.from({ length: BLOCK_COUNT }).map((_, i) => (
           <div
             key={i}
-            className="w-2 h-4 sm:w-2.5 sm:h-5 bg-white"
+            className="h-4 w-2 bg-white sm:h-5 sm:w-2.5"
             style={{
-              animation: 'retro-block-pulse 1.2s ease-in-out infinite',
+              animation: "retro-block-pulse 1.2s ease-in-out infinite",
               animationDelay: `${i * 0.08}s`,
             }}
           />

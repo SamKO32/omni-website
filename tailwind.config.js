@@ -1,27 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 import scrollbarHide from "tailwind-scrollbar-hide";
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       animation: {
-        blink: 'blink 1s step-start infinite',
+        blink: "blink 1s step-start infinite",
       },
       keyframes: {
         blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
         },
       },
       fontFamily: {
-        custom: ['MyFont', 'sans-serif'],
+        custom: ["MyFont", "sans-serif"],
       },
     },
   },
-  plugins: [
-    scrollbarHide, 
-  ],
-}
+  plugins: [scrollbarHide],
+};

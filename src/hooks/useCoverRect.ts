@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export interface CoverRect {
   left: number;
@@ -7,7 +7,7 @@ export interface CoverRect {
   height: number;
 }
 
-export type ObjectFit = 'cover' | 'fill';
+export type ObjectFit = "cover" | "fill";
 
 // The background videos render with `object-fit: cover` (or, on some routes/breakpoints,
 // `fill`) inside a viewport-filling container. Hitboxes are calibrated as percentages of
@@ -20,7 +20,7 @@ function computeRect(intrinsicWidth: number, intrinsicHeight: number, fit: Objec
   const cw = window.innerWidth;
   const ch = window.innerHeight;
 
-  if (fit === 'fill') {
+  if (fit === "fill") {
     return { left: 0, top: 0, width: cw, height: ch };
   }
 
@@ -33,18 +33,20 @@ function computeRect(intrinsicWidth: number, intrinsicHeight: number, fit: Objec
 export default function useCoverRect(
   intrinsicWidth: number,
   intrinsicHeight: number,
-  fit: ObjectFit = 'cover'
+  fit: ObjectFit = "cover"
 ): CoverRect {
-  const [rect, setRect] = useState<CoverRect>(() => computeRect(intrinsicWidth, intrinsicHeight, fit));
+  const [rect, setRect] = useState<CoverRect>(() =>
+    computeRect(intrinsicWidth, intrinsicHeight, fit)
+  );
 
   useEffect(() => {
     const onResize = () => setRect(computeRect(intrinsicWidth, intrinsicHeight, fit));
     onResize();
-    window.addEventListener('resize', onResize);
-    window.addEventListener('orientationchange', onResize);
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
     return () => {
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('orientationchange', onResize);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
     };
   }, [intrinsicWidth, intrinsicHeight, fit]);
 

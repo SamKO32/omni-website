@@ -1,39 +1,37 @@
-import { FaDiscord, FaInstagram, FaYoutube, FaTiktok } from 'react-icons/fa';
+import { FaDiscord, FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 
 export default function FAQPage() {
   return (
     <div
       style={{
-        position: 'fixed',
+        position: "fixed",
         inset: 0,
         zIndex: 2,
-        background: 'rgba(0, 0, 0, 0.55)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        background: "rgba(0, 0, 0, 0.55)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
       }}
-      className="text-white flex flex-col items-center justify-center gap-6 p-8"
+      className="flex flex-col items-center justify-center gap-6 p-8 text-white"
     >
-      <h2 className="font-custom font-bold text-2xl sm:text-3xl text-center tracking-widest">
+      <h2 className="text-center font-custom text-2xl font-bold tracking-widest sm:text-3xl">
         FAQ
       </h2>
 
-      <div className="w-full max-w-sm border-t border-white/20 pt-5 flex flex-col gap-4">
+      <div className="flex w-full max-w-sm flex-col gap-4 border-t border-white/20 pt-5">
         <div className="text-center">
-          <h3 className="font-custom font-semibold text-sm sm:text-base mb-1">
-            What is OMNI?
-          </h3>
+          <h3 className="mb-1 font-custom text-sm font-semibold sm:text-base">What is OMNI?</h3>
         </div>
 
         <div className="flex justify-center pt-2">
-          <span className="font-custom text-xs sm:text-sm tracking-wider text-white/70">
+          <span className="font-custom text-xs tracking-wider text-white/70 sm:text-sm">
             ONTO MY NEXT IDEA
           </span>
         </div>
       </div>
 
-      <div className="w-full max-w-sm border-t border-white/20 pt-5 flex flex-col gap-4">
+      <div className="flex w-full max-w-sm flex-col gap-4 border-t border-white/20 pt-5">
         <div className="text-center">
-          <h3 className="font-custom font-semibold text-sm sm:text-base mb-1">
+          <h3 className="mb-1 font-custom text-sm font-semibold sm:text-base">
             Where can I find OMNI?
           </h3>
         </div>
@@ -41,16 +39,16 @@ export default function FAQPage() {
         {/* flex-wrap is a safety net — four labelled icons are close to the usable
            width inside the TV bezel on the narrowest phones, so they drop to a
            second row rather than overflowing into the frame. */}
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-6 pt-2">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 pt-2 sm:gap-6">
           <a
             href="https://discord.gg/aVAwQEaU"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Join our Discord"
-            className="flex flex-col items-center gap-1.5 text-white/70 hover:text-white transition-colors group"
+            className="group flex flex-col items-center gap-1.5 text-white/70 transition-colors hover:text-white"
           >
-            <FaDiscord className="text-3xl sm:text-5xl group-hover:scale-110 transition-transform" />
-            <span className="font-custom text-[10px] sm:text-xs tracking-wider">DISCORD</span>
+            <FaDiscord className="text-3xl transition-transform group-hover:scale-110 sm:text-5xl" />
+            <span className="font-custom text-[10px] tracking-wider sm:text-xs">DISCORD</span>
           </a>
 
           <a
@@ -58,10 +56,10 @@ export default function FAQPage() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow us on Instagram"
-            className="flex flex-col items-center gap-1.5 text-white/70 hover:text-white transition-colors group"
+            className="group flex flex-col items-center gap-1.5 text-white/70 transition-colors hover:text-white"
           >
-            <FaInstagram className="text-3xl sm:text-5xl group-hover:scale-110 transition-transform" />
-            <span className="font-custom text-[10px] sm:text-xs tracking-wider">INSTAGRAM</span>
+            <FaInstagram className="text-3xl transition-transform group-hover:scale-110 sm:text-5xl" />
+            <span className="font-custom text-[10px] tracking-wider sm:text-xs">INSTAGRAM</span>
           </a>
 
           <a
@@ -69,10 +67,10 @@ export default function FAQPage() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Subscribe on YouTube"
-            className="flex flex-col items-center gap-1.5 text-white/70 hover:text-white transition-colors group"
+            className="group flex flex-col items-center gap-1.5 text-white/70 transition-colors hover:text-white"
           >
-            <FaYoutube className="text-3xl sm:text-5xl group-hover:scale-110 transition-transform" />
-            <span className="font-custom text-[10px] sm:text-xs tracking-wider">YOUTUBE</span>
+            <FaYoutube className="text-3xl transition-transform group-hover:scale-110 sm:text-5xl" />
+            <span className="font-custom text-[10px] tracking-wider sm:text-xs">YOUTUBE</span>
           </a>
 
           <a
@@ -80,10 +78,10 @@ export default function FAQPage() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow us on TikTok"
-            className="flex flex-col items-center gap-1.5 text-white/70 hover:text-white transition-colors group"
+            className="group flex flex-col items-center gap-1.5 text-white/70 transition-colors hover:text-white"
           >
-            <FaTiktok className="text-3xl sm:text-5xl group-hover:scale-110 transition-transform" />
-            <span className="font-custom text-[10px] sm:text-xs tracking-wider">TIKTOK</span>
+            <FaTiktok className="text-3xl transition-transform group-hover:scale-110 sm:text-5xl" />
+            <span className="font-custom text-[10px] tracking-wider sm:text-xs">TIKTOK</span>
           </a>
         </div>
       </div>

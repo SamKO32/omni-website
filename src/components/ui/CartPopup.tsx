@@ -1,15 +1,15 @@
 // components/ui/CartPopup.tsx
-import React, { useMemo, useState } from 'react';
-import { CartItem } from '../../context/storeContextValue';
-import { useStore } from '../../context/useStore';
-import { createShopifyCheckout } from '../../../lib/shopify';
+import React, { useMemo, useState } from "react";
+import { CartItem } from "../../context/storeContextValue";
+import { useStore } from "../../context/useStore";
+import { createShopifyCheckout } from "../../../lib/shopify";
 
 type GroupedCartItem = CartItem & { quantity: number };
 
 // Strips currency formatting ("$" and thousands separators) before parsing —
 // a plain .replace('$', '') would silently truncate "$1,200.00" to 1.
 function parsePrice(price: string): number {
-  return parseFloat(price.replace(/[$,]/g, ''));
+  return parseFloat(price.replace(/[$,]/g, ""));
 }
 
 export default function CartPopup({ onClose }: { onClose: () => void }) {
@@ -18,33 +18,30 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const groupedItems = useMemo(() => {
-    const grouped = cart.reduce((acc, item) => {
-      const key = `${item.id}-${item.size ?? 'NOSIZE'}`;
-      if (!acc[key]) {
-        acc[key] = { ...item, quantity: 1 };
-      } else {
-        acc[key].quantity += 1;
-      }
-      return acc;
-    }, {} as Record<string, GroupedCartItem>);
+    const grouped = cart.reduce(
+      (acc, item) => {
+        const key = `${item.id}-${item.size ?? "NOSIZE"}`;
+        if (!acc[key]) {
+          acc[key] = { ...item, quantity: 1 };
+        } else {
+          acc[key].quantity += 1;
+        }
+        return acc;
+      },
+      {} as Record<string, GroupedCartItem>
+    );
     return Object.values(grouped);
   }, [cart]);
 
   const subtotal = useMemo(
     () =>
       groupedItems
-        .reduce(
-          (total, item) => total + item.quantity * parsePrice(item.price),
-          0
-        )
+        .reduce((total, item) => total + item.quantity * parsePrice(item.price), 0)
         .toFixed(2),
     [groupedItems]
   );
 
-  const handleQuantityChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    item: GroupedCartItem
-  ) => {
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>, item: GroupedCartItem) => {
     const newQuantity = parseInt(e.target.value);
     const currentCount = item.quantity;
 
@@ -96,7 +93,10 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
       clearCart();
     } catch (error) {
       console.error("Error during checkout:", error);
-      const message = error instanceof Error ? error.message : "We couldn’t connect to Shopify. Please try again.";
+      const message =
+        error instanceof Error
+          ? error.message
+          : "We couldn’t connect to Shopify. Please try again.";
       setCheckoutError(message);
     } finally {
       setIsCheckingOut(false);
@@ -105,20 +105,24 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-  className="
-    fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+      className="
+    fixed left-1/2 top-1/2 z-50 max-h-[65dvh]
     w-[70vw] max-w-[420px]
-    max-h-[65dvh]
-    bg-white border border-black text-black
-    p-4 sm:p-6
-    rounded-lg shadow-xl z-50
-    overflow-y-auto
-    font-custom
+    -translate-x-1/2
+    -translate-y-1/2 overflow-y-auto rounded-lg border
+    border-black bg-white
+    p-4 font-custom text-black
+    shadow-xl
+    sm:p-6
   "
->
-      <div className="flex justify-between items-center mb-4">
+    >
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-bold">CART</h2>
-        <button onClick={onClose} aria-label="Close cart" className="text-gray-600 hover:text-red-500 text-lg">
+        <button
+          onClick={onClose}
+          aria-label="Close cart"
+          className="text-lg text-gray-600 hover:text-red-500"
+        >
           ✕
         </button>
       </div>
@@ -132,20 +136,16 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
               <button
                 onClick={() => handleRemoveAll(item)}
                 aria-label="Remove item"
-                className="text-black text-xl hover:text-red-500"
+                className="text-xl text-black hover:text-red-500"
               >
                 ✕
               </button>
 
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-14 h-14 object-cover rounded"
-              />
+              <img src={item.image} alt={item.name} className="size-14 rounded object-cover" />
 
               <div className="flex-1">
                 <div className="font-semibold">{item.name}</div>
-                <div className="text-xs text-gray-600">{item.size ?? 'One Size'}</div>
+                <div className="text-xs text-gray-600">{item.size ?? "One Size"}</div>
               </div>
 
               <input
@@ -153,10 +153,10 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
                 min={0}
                 value={item.quantity}
                 onChange={(e) => handleQuantityChange(e, item)}
-                className="w-12 text-center border border-gray-400 rounded px-1 py-0.5"
+                className="w-12 rounded border border-gray-400 px-1 py-0.5 text-center"
               />
 
-              <div className="text-right font-semibold w-14 text-sm">
+              <div className="w-14 text-right text-sm font-semibold">
                 ${(item.quantity * parsePrice(item.price)).toFixed(2)}
               </div>
             </li>
@@ -166,22 +166,22 @@ export default function CartPopup({ onClose }: { onClose: () => void }) {
 
       {groupedItems.length > 0 && (
         <div className="mt-6">
-          <p className="font-semibold text-right">Subtotal: ${subtotal}</p>
+          <p className="text-right font-semibold">Subtotal: ${subtotal}</p>
 
           {checkoutError && (
-            <p className="mt-2 text-xs text-red-600 text-center">{checkoutError}</p>
+            <p className="mt-2 text-center text-xs text-red-600">{checkoutError}</p>
           )}
 
           <button
             onClick={handleCheckout}
             disabled={isCheckingOut}
-            className="mt-4 w-full font-custom px-4 py-2 rounded-full shadow-lg border border-black transition-transform duration-200 disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:scale-105"
+            className="mt-4 w-full rounded-full border border-black px-4 py-2 font-custom shadow-lg transition-transform duration-200 enabled:hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
             style={{
-              backgroundColor: 'white',
-              color: 'black',
+              backgroundColor: "white",
+              color: "black",
             }}
           >
-            {isCheckingOut ? 'REDIRECTING...' : 'CHECKOUT'}
+            {isCheckingOut ? "REDIRECTING..." : "CHECKOUT"}
           </button>
         </div>
       )}
