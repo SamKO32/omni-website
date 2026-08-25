@@ -1,7 +1,7 @@
 export const products = [
   {
     id: 1,
-    name: 'PSP TEE',
+    name: 'OW',
     price: '$30',
     image: '/images/products/psp_render.webp',
     extraImages: ['/images/products/psp_detail.jpg', '/images/products/psp_front.jpg', 
@@ -16,7 +16,7 @@ export const products = [
   },
   {
     id: 2,
-    name: 'TIME F*CKS TEE',
+    name: 'TIME',
     price: '$30',
     image: '/images/products/tf_render_f.webp',
     hoverImage: '/images/products/tf_render_b.webp',

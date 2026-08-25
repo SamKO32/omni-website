@@ -8,18 +8,18 @@ OMNI is a React + TypeScript single-page application for a clothing brand. It se
 
 ## Tech Stack
 
-| Layer | Tool |
-|---|---|
-| Framework | React 18 |
-| Language | TypeScript |
-| Bundler | Vite |
-| Routing | React Router v6 |
-| Styling | Tailwind CSS v3 + custom CSS in `index.css` |
-| State | React Context (`StoreContext`) |
-| Commerce | Shopify Storefront GraphQL API (2024-01) |
-| Fonts | Custom: MotorolaScreentype (`@font-face` → `font-custom`) |
-| Icons | react-icons |
-| Persistence | `localStorage` with 3-day TTL |
+| Layer       | Tool                                                      |
+| ----------- | --------------------------------------------------------- |
+| Framework   | React 18                                                  |
+| Language    | TypeScript                                                |
+| Bundler     | Vite                                                      |
+| Routing     | React Router v6                                           |
+| Styling     | Tailwind CSS v3 + custom CSS in `index.css`               |
+| State       | React Context (`StoreContext`)                            |
+| Commerce    | Shopify Storefront GraphQL API (2024-01)                  |
+| Fonts       | Custom: MotorolaScreentype (`@font-face` → `font-custom`) |
+| Icons       | react-icons                                               |
+| Persistence | `localStorage` with 3-day TTL                             |
 
 ---
 
@@ -109,6 +109,7 @@ All routes are lazy-loaded via `React.lazy` + `<Suspense fallback={null}>`.
 Single context: `StoreContext` (`src/context/StoreContext.tsx`).
 
 **Provided values:**
+
 - `cart: CartItem[]` — array of items (one entry per add-to-cart action, duplicates allowed for qty)
 - `addToCart(item)` — appends item; duplicates represent quantity
 - `removeFromCart(match)` — removes ALL items matching `{id, size, variantId}`
@@ -132,6 +133,7 @@ Handled in `lib/shopify.ts` via two sequential GraphQL mutations to the Shopify 
 `CartPopup` calls `createShopifyCheckout(groupedItems)`, then redirects to the Shopify-hosted checkout URL. On success, local cart is cleared.
 
 **Env vars required:**
+
 - `VITE_SHOPIFY_DOMAIN` — e.g. `omni-9335.myshopify.com`
 - `VITE_SHOPIFY_STOREFRONT_API_TOKEN` — public Storefront token
 
@@ -154,23 +156,25 @@ Each page supplies its own `VideoBackground` source and poster path. Pages do **
 ## Asset Pipeline
 
 ### Videos
+
 All background videos are H.264 `.mp4` encoded with `-movflags faststart` (metadata at file start — playback begins before full download).
 
-| File | Size |
-|---|---|
-| GATEPAGEBG.mp4 | ~4.5 MB |
-| HOMEPAGEBG.mp4 | ~3.7 MB |
+| File             | Size    |
+| ---------------- | ------- |
+| GATEPAGEBG.mp4   | ~4.5 MB |
+| HOMEPAGEBG.mp4   | ~3.7 MB |
 | LISTENPAGEBG.mp4 | ~8.0 MB |
-| bgspace.mp4 | ~3.5 MB |
+| bgspace.mp4      | ~3.5 MB |
 
 Original `.mov` sources (~298 MB total) can be deleted once `.mp4` files are confirmed working. `optimize-assets.sh` at the repo root performs the conversion via `ffmpeg`.
 
 ### Images
+
 Primary product render images are `.webp` (converted from PNG via `cwebp`). Detail/lifestyle shots remain `.jpg`.
 
-| File | Size |
-|---|---|
-| psp_render.webp | ~187 KB |
+| File             | Size    |
+| ---------------- | ------- |
+| psp_render.webp  | ~187 KB |
 | tf_render_f.webp | ~530 KB |
 | tf_render_b.webp | ~417 KB |
 
@@ -181,24 +185,28 @@ Poster frames (first frame of each video) live in `public/images/posters/` and a
 ## Product Data
 
 Products are hardcoded in `src/data/products.tsx`. Each product has:
+
 - `id`, `name`, `price` (string, e.g. `"$30"`)
 - `image` (.webp), `hoverImage?` (.webp), `extraImages[]` (.jpg)
 - `sizes: string[]`
 - `variants: { size, variantId }[]` — Shopify GID variant IDs
 
-Currently 2 products: **PSP TEE** and **TIME F\*CKS TEE**.
+Currently 2 products: **OW** and **TIME** t-shirts.
 
 ---
 
 ## Tooling
 
 ### Lint
+
 ```bash
 npm run lint   # eslint src/ lib/ --cache
 ```
+
 Config (`eslint.config.js`) uses `@typescript-eslint/parser` with only two plugins: `react-hooks` and `react-refresh`. First run is slow due to macOS Gatekeeper scanning the parser binary; subsequent runs hit the cache and complete in ~1 second.
 
 ### Build & Deploy
+
 ```bash
 make install    # npm install
 make start      # npx vite --host (LAN-accessible dev server)
